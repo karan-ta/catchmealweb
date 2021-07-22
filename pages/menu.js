@@ -1,7 +1,10 @@
 import Head from 'next/head'
 import Image from 'next/image'
+import { BsHeart } from 'react-icons/bs';
+import Restaurant from '../components/restaurant.js'
+import MenuItem from '../components/menuitem.js'
 export default function Menu() {
-  
+  let iconStyles = { color: "red", fontSize: "1.2em" };
     return (
         <div className="container">
         <Head>
@@ -17,15 +20,45 @@ export default function Menu() {
       alt="Your Name"
     />
     <br/>
-    <br/>
+    <div className = "floatleft menuchefimgdiv">
     <Image className = "menuchefimg"
       src="/images/wayne.webp" // Route of the image file
-      height={164} // Desired size with correct aspect ratio
-      width={164} // Desired size with correct aspect ratio
-     
+      height={120} // Desired size with correct aspect ratio
+      width={120} // Desired size with correct aspect ratio
       alt="Your Name"
     />
     </div>
+    <div className = "chefmenuheader floatright">
+      <div className = "bottom10">
+      <h4 className = "zeropadding ">
+        Wayne's Menu for Friday - July 23
+        </h4>
+        </div>
+      <div className = "bottom10">
+        Indian
+      </div>
+
+      <div className="hearticon">
+    <BsHeart style={iconStyles}/>
+    </div>
+    <div>
+      25
+    </div>
+    <div className="chefbiotext">
+      <p>
+      I was raised in a house blessed with excellent cooks.
+      it was almost second nature to follow after my granny, mom, and my elder brother.
+      </p>
+    </div>
+    </div>
+    <div className="clearspacer"></div>
+
+     <MenuItem />
+     <MenuItem />
+     <MenuItem />
+     <br/>
+    </div>
+    {/* left page container ends */}
     <div className="rightpagecontainer">
         <h4>
             Your Cart is empty.
@@ -33,9 +66,40 @@ export default function Menu() {
     </div>
         </main>
           <style jsx global>{`
+          .clearspacer{
+            clear:both;
+          }
+          .chefbiotext{
+            clear:both;
+          }
+             .hearticon{
+            
+              float:left;
+              margin-right:10px;
+                  }
+          .bottom10{
+            margin-bottom:10px;
+          }
+      .zeropadding{
+        padding:0px;
+        margin:0px;
+      }    
+      .chefmenuheader{
+        width:80%;
+        margin-top:20px;
+        color:#333;
+      }    
+      .floatleft{
+        float:left;
+      }    
+      .floatright{
+        float:right;
+      }
       .mycontainer{
-       
         font-family: arial;
+        margin:0px;
+        margin:0px;
+        padding:0px;
       }
       a{
         text-decoration:none;
@@ -44,15 +108,26 @@ export default function Menu() {
       .leftpagecontainer{
           border-right:1px solid #aaa;
           float:left;
+          width:76%;
+          margin:0px;
+        padding:0px;
       }
       .rightpagecontainer{
         border-top:1px solid #aaa;
-        padding:10px;
+        width:22%;
+        float:right;
       }
       .menuchefimg{
         border-radius: 50%;
-        margin-left:30px;
-       
+      
+      }
+      .menuchefimgdiv{
+        margin-left:40px;
+        margin-top:30px;
+      }
+      .container{
+        margin:0px;
+        padding:0px;
       }
       `}</style>
         </div>
