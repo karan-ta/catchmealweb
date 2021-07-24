@@ -3,6 +3,8 @@ import Image from 'next/image'
 import { BsHeart } from 'react-icons/bs';
 import Restaurant from '../components/restaurant.js'
 import MenuItem from '../components/menuitem.js'
+import Cart from '../components/Cart.js'
+import { menuItemData } from "../data/menuItemData";
 export default function Menu() {
   let iconStyles = { color: "red", fontSize: "1.2em" };
     return (
@@ -52,18 +54,21 @@ export default function Menu() {
     </div>
     </div>
     <div className="clearspacer"></div>
-
-     <MenuItem />
-     <MenuItem />
-     <MenuItem />
+    {menuItemData.map((menuItem, index) => {
+   return (
+     <MenuItem 
+     menuitemimage={menuItem.menuitemimage}
+     itemname={menuItem.itemname}
+     itemdesc={menuItem.itemdesc}
+     itemprice={menuItem.itemprice}
+     isveg={menuItem.isveg}
+     />
+   );
+    })}
      <br/>
     </div>
     {/* left page container ends */}
-    <div className="rightpagecontainer">
-        <h4>
-            Your Cart is empty.
-        </h4>
-    </div>
+  <Cart/>
         </main>
           <style jsx global>{`
           .clearspacer{
@@ -112,11 +117,7 @@ export default function Menu() {
           margin:0px;
         padding:0px;
       }
-      .rightpagecontainer{
-        border-top:1px solid #aaa;
-        width:22%;
-        float:right;
-      }
+     
       .menuchefimg{
         border-radius: 50%;
       

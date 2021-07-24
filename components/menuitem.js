@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import { Component } from 'react'
+import eventBus from "./EventBus";
 
 export default class MenuItem extends Component {
     constructor(props) {
@@ -7,35 +8,38 @@ export default class MenuItem extends Component {
         this.state = {
           count:0
         };
+     this.props = props;
       }
       addQty = (e) => {
         let count = this.state.count;
         count++;
         this.setState({count:count})
+        eventBus.dispatch("addCart", { itemname: "Veg Soup",itemprice:20 });
     }
     minusQty = (e) => {
         let count = this.state.count;
         count--;
         this.setState({count:count})
+        eventBus.dispatch("removeCart", { itemname: "Veg Soup",itemprice:20 });
     }
    render(){ 
        return( 
 <div className="menuitemcontainer">
         <Image 
-        src="/images/menuitem.jpg" // Route of the image file
+        src={this.props.menuitemimage} // Route of the image file
         height={185} // Desired size with correct aspect ratio
         width={305} // Desired size with correct aspect ratio
         alt="Your Name"
       />
        <div className="itemname">
-   Veg Soup
+       {this.props.itemname}
     </div>
     <div className="itemprice">
     <p className="ruppee">&#8377;</p>
-    25
+    {this.props.itemprice}
     </div>
     <div className="itemdesc">
-    A soft and savory South Indian dish simple ingredients like rice lentils and seasoning fried on a griddle,
+       {this.props.itemdesc}
     </div>
     <div className="floatleft minusbuttondiv">
     <button onClick={this.minusQty} className="minusbutton"> - </button>
