@@ -10,17 +10,21 @@ export default class MenuItem extends Component {
         };
      this.props = props;
       }
-      addQty = (e) => {
+      addQty = () => {
+          console.log("call add quantity")
         let count = this.state.count;
         count++;
         this.setState({count:count})
-        eventBus.dispatch("addCart", { itemname: "Veg Soup",itemprice:20 });
+        eventBus.dispatch("addCart", { itemname:this.props.itemname,itemprice:this.props.itemprice });
     }
-    minusQty = (e) => {
+    minusQty = () => {
         let count = this.state.count;
+        if (count == 0)
+        return;
         count--;
+       
         this.setState({count:count})
-        eventBus.dispatch("removeCart", { itemname: "Veg Soup",itemprice:20 });
+        eventBus.dispatch("removeCart", { itemname: this.props.itemname,itemprice:this.props.itemprice });
     }
    render(){ 
        return( 

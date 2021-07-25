@@ -5,7 +5,11 @@ import Restaurant from '../components/restaurant.js'
 import MenuItem from '../components/menuitem.js'
 import Cart from '../components/Cart.js'
 import { menuItemData } from "../data/menuItemData";
-export default function Menu() {
+import { useRouter } from 'next/router'
+
+export default function Menu(props) {
+  const router = useRouter();
+  console.log(router.query);
   let iconStyles = { color: "red", fontSize: "1.2em" };
     return (
         <div className="container">
@@ -133,3 +137,4 @@ export default function Menu() {
       `}</style>
         </div>
     )}
+    

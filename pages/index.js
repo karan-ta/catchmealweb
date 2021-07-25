@@ -2,8 +2,21 @@
 import Head from 'next/head'
 import { restaurantData } from "../data/restaurantsData";
 import Restaurant from '../components/restaurant.js'
+import { useRouter } from 'next/router'
+
 export default function Home() {
-  
+  const router = useRouter();
+  const menuhref = "/menu";
+   const showMenu = (e) => {
+    e.preventDefault()
+    router.push(
+      {
+      pathname: '/menu',
+      query: { name: 'Someone' }
+    },
+    '/menu',
+    )
+  }
   return (
     <div className="container">
       <Head>
@@ -13,7 +26,9 @@ export default function Home() {
       <main className="mycontainer">
       {restaurantData.map((restaurant, index) => {
           return (
-            <a href = "/menu">
+            <a href={menuhref}
+            onClick={showMenu}
+            >
             <Restaurant 
             chefname={restaurant.chefname} 
             cuisine={restaurant.cuisine}
