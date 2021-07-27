@@ -1,24 +1,3 @@
-export const restaurantData =[
-  {
-    chefname: "Wayne J",
-    signaturedishimage: "/images/signaturedish1.jpg",
-    chefimage: "/images/wayne.webp",
-    cuisine: "Italian",
-    likes: "25"
-  },
-  {
-    chefname: "Monica D",
-    signaturedishimage: "/images/signaturedish1.jpg",
-    chefimage: "/images/wayne.webp",
-    cuisine: "Mexican",
-    likes: "25"
-  },
-  {
-    chefname: "Albert X",
-    signaturedishimage: "/images/signaturedish1.jpg",
-    chefimage: "/images/wayne.webp",
-    cuisine: "Indian",
-    likes: "25"
-  },
-  
-]
+export const restaurantData =
+'[{"chefname":"Wayne J", "signaturedishimage":"/images/signaturedish1.jpg", "chefimage":"/images/wayne.webp","cuisine":"Italian","likes":"25","bio":"I was raised in a house blessed with excellent cooks. it was almost second nature to follow after my granny, mom, and my elder brother.","cheftitlelabel":"Wayne\'s","menu":[{"menuitemimage":"/images/menuitem.jpg","itemname":"Veg Soup","itemdesc":"A soft and savory South Indian dish simple ingredients like rice lentils and seasoning fried on a griddle.","itemprice":"25","isVeg":"true"},{"menuitemimage":"/images/menuitem.jpg","itemname":"Veg Soup","itemdesc":"A soft and savory South Indian dish simple ingredients like rice lentils and seasoning fried on a griddle.","itemprice":"25","isVeg":"true"},{"menuitemimage":"/images/menuitem.jpg","itemname":"Veg Pasta","itemdesc":"A soft and savory South Indian dish simple ingredients like rice lentils and seasoning fried on a griddle.","itemprice":"50","isVeg":"true"}]},\
+{"chefname":"Wayne J", "signaturedishimage":"/images/signaturedish1.jpg", "chefimage":"/images/wayne.webp","cuisine":"Italian","likes":"25","bio":"I was raised in a house blessed with excellent cooks. it was almost second nature to follow after my granny, mom, and my elder brother.","cheftitlelabel":"Wayne\'s","menu":[{"menuitemimage":"/images/menuitem.jpg","itemname":"Veg Soup","itemdesc":"A soft and savory South Indian dish simple ingredients like rice lentils and seasoning fried on a griddle.","itemprice":"25","isVeg":"true"},{"menuitemimage":"/images/menuitem.jpg","itemname":"Veg Soup","itemdesc":"A soft and savory South Indian dish simple ingredients like rice lentils and seasoning fried on a griddle.","itemprice":"25","isVeg":"true"},{"menuitemimage":"/images/menuitem.jpg","itemname":"Veg Soup","itemdesc":"A soft and savory South Indian dish simple ingredients like rice lentils and seasoning fried on a griddle.","itemprice":"25","isVeg":"true"}]}]'

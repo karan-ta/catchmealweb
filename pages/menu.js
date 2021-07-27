@@ -9,12 +9,13 @@ import { useRouter } from 'next/router'
 
 export default function Menu(props) {
   const router = useRouter();
-  console.log(router.query);
+  const menuDataRcvd = JSON.parse(router.query.menu);
+  console.log(menuDataRcvd);
   let iconStyles = { color: "red", fontSize: "1.2em" };
     return (
         <div className="container">
         <Head>
-          <title>Wayne's Menu for Thursday (19 july)</title>
+          <title>{router.query.cheftitlelabel} Menu for Thursday (19 july)</title>
           <link rel="icon" href="/favicon.ico"/>
         </Head>
         <main className="mycontainer">
@@ -41,24 +42,23 @@ export default function Menu(props) {
         </h4>
         </div>
       <div className = "bottom10">
-        Indian
+        {router.query.cuisine}
       </div>
 
       <div className="hearticon">
     <BsHeart style={iconStyles}/>
     </div>
     <div>
-      25
+    {router.query.likes}
     </div>
     <div className="chefbiotext">
       <p>
-      I was raised in a house blessed with excellent cooks.
-      it was almost second nature to follow after my granny, mom, and my elder brother.
+      {router.query.bio}
       </p>
     </div>
     </div>
     <div className="clearspacer"></div>
-    {menuItemData.map((menuItem, index) => {
+    {menuDataRcvd.map((menuItem, index) => {
    return (
      <MenuItem 
      menuitemimage={menuItem.menuitemimage}
