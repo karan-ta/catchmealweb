@@ -1,2 +1,8 @@
 https://www.npmjs.com/package/react-google-places-autocomplete
 
+maps api key:
+AIzaSyDmC0s0C0YVDp9KJKElTCAVokdI047V1II
+
+AIzaSyCqk4jAN87rFSBqhgr2VhKXZyx_1yGDh7Y
+Successfully got latitude and longitude {lat: 19.236529, lng: 72.842145}
+
