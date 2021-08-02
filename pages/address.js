@@ -12,7 +12,17 @@ export default function Address() {
        geocodeByAddress(value.label)
   .then(results => getLatLng(results[0]))
   .then(({ lat, lng }) =>
-    console.log('Successfully got latitude and longitude', { lat, lng })
+    // console.log('Successfully got latitude and longitude', { lat, lng });
+    fetch("http://0.0.0.0:8080/"+lat+"/"+lng)
+    .then(res => res.json())
+    .then(
+      (response) => {
+       console.log(response)
+      },
+      (error) => {
+     
+      }
+    )
   );
         }
       });

@@ -5,4 +5,19 @@ AIzaSyDmC0s0C0YVDp9KJKElTCAVokdI047V1II
 
 AIzaSyCqk4jAN87rFSBqhgr2VhKXZyx_1yGDh7Y
 Successfully got latitude and longitude {lat: 19.236529, lng: 72.842145}
+Successfully got latitude and longitude {lat: 19.2354704, lng: 72.8439045}
+Successfully got latitude and longitude {lat: 19.2079196, lng: 72.8713562}
+
+http://0.0.0.0:8080/19.236529/72.842145
+http://0.0.0.0:8080/19.2354704/72.8439045
+http://0.0.0.0:8080/19.2079196/72.8713562
+
+
+psql "dbname=catchmymeal host=127.0.0.1 user=postgres password=postgres port=5432"
+ALTER TABLE chefs ADD COLUMN lat2 DOUBLE ;
+update chefs set lat2 = 19.2354704 where id = 1;
+update chefs set long2 = 72.8439045 where id = 1;
+update chefs set lat2 = 19.2079196 where id = 2;
+update chefs set long2 = 72.8713562 where id = 2;
+update chefs set lat2cosine = 0.9443309042502763 where id = 2;
 
