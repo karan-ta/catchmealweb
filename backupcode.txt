@@ -1,0 +1,44 @@
+fun getMenuData():String
+{
+        var myMenuData:String = "[]"
+        val db = Database.connect("jdbc:postgresql://localhost:5432/catchmymeal", driver = "org.postgresql.Driver",
+        user = "postgres", password = "postgres")
+        transaction(db) {
+        var id: Int = 0
+        var itemphotoname:String = ""
+        var itemname:String = ""
+        var itemdesc:String = ""
+        var isveg:String = "T"
+        var itemprice:String = "0.0"
+        var signaturedishimagename:String = ""
+        var chefphotoname:String = ""
+        var chefname:String = ""
+        var chefbio:String = ""
+        var likes:String = ""
+        var cuisinename:String = ""
+        var menu:MutableList<MenuItem> = mutableListOf()
+        exec("select signaturedishimagename,chefphotoname,chefname,chefbio,likes,cuisinename from chefs where id = 1") { rs ->
+            while (rs.next()) {
+                signaturedishimagename = rs.getString("signaturedishimagename")
+                chefphotoname = rs.getString("chefphotoname")
+                chefname = rs.getString("chefname")
+                chefbio = rs.getString("chefbio")
+                likes = rs.getString("likes")
+                cuisinename = rs.getString("cuisinename")
+
+            }
+        }
+        exec("select itemphotoname,itemname,itemdesc,isveg,itemprice from chefmenu") { rs ->
+            while (rs.next()) {
+                itemphotoname = rs.getString("itemphotoname")
+                itemname = rs.getString("itemname")
+                itemdesc = rs.getString("itemdesc")
+                isveg = rs.getString("isveg")
+                itemprice = rs.getString("itemprice")
+                menu.add(MenuItem(itemphotoname, itemname, itemdesc, isveg, itemprice,signaturedishimagename,chefphotoname,chefname,chefbio,likes,cuisinename))
+            }
+            myMenuData = Gson().toJson(menu)
+        }
+    }
+    return myMenuData
+}

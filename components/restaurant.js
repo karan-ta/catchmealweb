@@ -2,7 +2,7 @@ import Image from 'next/image'
 import { BsHeart } from 'react-icons/bs';
 export default function Restaurant(props) {
     let iconStyles = { color: "red", fontSize: "1.2em" };
-    return (
+    return(
         <div className="restaurant">
         <Image 
       src={props.signaturedishimage} // Route of the image file

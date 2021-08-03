@@ -9,6 +9,7 @@ import { useRouter } from 'next/router'
 
 export default function Menu(props) {
   const router = useRouter();
+  console.log (router.query.menu);
   const menuDataRcvd = JSON.parse(router.query.menu);
   console.log(menuDataRcvd);
   let iconStyles = { color: "red", fontSize: "1.2em" };
@@ -61,7 +62,7 @@ export default function Menu(props) {
     {menuDataRcvd.map((menuItem, index) => {
    return (
      <MenuItem 
-     menuitemimage={menuItem.menuitemimage}
+     menuitemimage={menuItem.itemphotoname}
      itemname={menuItem.itemname}
      itemdesc={menuItem.itemdesc}
      itemprice={menuItem.itemprice}
