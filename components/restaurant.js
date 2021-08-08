@@ -65,6 +65,9 @@ export default function Restaurant(props) {
         float:left;
         margin-right:40px;
         border: 1px solid #aaa;
+        margin-bottom:30px;
+        
+       
       
       }
     `}</style>

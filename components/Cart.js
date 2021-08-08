@@ -3,7 +3,7 @@ import eventBus from "./EventBus";
 
 export default class Cart extends Component {
     constructor(props) {
-        super(props);
+        super(props)
         this.state = {
           cart:[],
           cartTotal:0
@@ -85,7 +85,9 @@ export default class Cart extends Component {
         eventBus.remove("removeCart");
       }
       render(){ 
+     
           return ( 
+           
         <div className="rightpagecontainer">
         {this.state.cart.map((cartItem, index) => {
             return (
@@ -129,12 +131,17 @@ export default class Cart extends Component {
            margin-right:10%;
          }
          .rightpagecontainer{
-            border-top:1px solid #aaa;
-            width:22%;
+         
+            width:20%;
             float:right;
            
           }
+          @media only screen and (max-width: 980px) {
+            .rightpagecontainer {
+                display: none;
+            }
+        }
 `}</style>
         </div>
-)}
+        )}
 }

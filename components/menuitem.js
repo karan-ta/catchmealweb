@@ -29,23 +29,20 @@ export default class MenuItem extends Component {
    render(){ 
        return( 
 <div className="menuitemcontainer">
-        <Image 
-        src={this.props.menuitemimage} // Route of the image file
-        height={185} // Desired size with correct aspect ratio
-        width={305} // Desired size with correct aspect ratio
-        alt="Your Name"
-      />
-       <div className="itemname">
+  <div className = "appliedcontainer">
+     <div className="itemname">
        {this.props.itemname}
     </div>
-    <div className="itemprice">
+     <div className="itemprice">
     <p className="ruppee">&#8377;</p>
     {this.props.itemprice}
     </div>
+    </div>
+    {/*}
     <div className="itemdesc">
        {this.props.itemdesc}
-    </div>
-    <div className="floatleft minusbuttondiv">
+    </div> */}
+    {/* <div className="floatleft minusbuttondiv">
     <button onClick={this.minusQty} className="minusbutton"> - </button>
     </div>
     <div className="floatleft itemquantity">
@@ -56,10 +53,13 @@ export default class MenuItem extends Component {
     </div>
     <div className="floatright itemlearnmore">
         <a href = "">Learn More</a>
-    </div>
-    <br/>
-    <br/>
+    </div> */}
+  
 <style jsx global>{`
+.appliedcontainer{
+    width:80%;
+    margin:0 auto;
+}
 .ruppee{
     margin:0px;float:left;padding-right:3px;
 }
@@ -108,9 +108,16 @@ export default class MenuItem extends Component {
   margin-right:30px;
     margin-top:30px;
     border:1px solid #aaa;
-   width:30%;
    float:left;
+   
 }
+@media only screen and (max-width: 980px) {
+    .menuitemcontainer {
+    
+        width: 80%;
+        margin: 0 auto;
+        margin-bottom:20px;
+    }
 .floatleft{
     float:left;
   }    

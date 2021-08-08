@@ -59,6 +59,7 @@ export default function Menu(props) {
     </div>
     </div>
     <div className="clearspacer"></div>
+    <div>
     {menuDataRcvd.map((menuItem, index) => {
    return (
      <MenuItem 
@@ -70,12 +71,14 @@ export default function Menu(props) {
      />
    );
     })}
+    </div>
      <br/>
     </div>
     {/* left page container ends */}
-  <Cart/>
+  <Cart />
         </main>
           <style jsx global>{`
+          
           .clearspacer{
             clear:both;
           }
@@ -110,19 +113,20 @@ export default function Menu(props) {
         margin:0px;
         margin:0px;
         padding:0px;
+        width:96%;
       }
+   
       a{
         text-decoration:none;
         color:#000;
       }
       .leftpagecontainer{
-          border-right:1px solid #aaa;
           float:left;
-          width:76%;
+        
           margin:0px;
         padding:0px;
       }
-     
+    
       .menuchefimg{
         border-radius: 50%;
       
@@ -135,6 +139,15 @@ export default function Menu(props) {
         margin:0px;
         padding:0px;
       }
+      @media only screen and (min-width: 980px) {
+        .leftpagecontainer {
+          border-right:1px solid #aaa;
+          width:79%;
+        }
+        @media only screen and (max-width: 980px) {
+          .leftpagecontainer {
+            width:99%;
+          }
       `}</style>
         </div>
     )}

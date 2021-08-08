@@ -24,4 +24,4 @@ update chefs set lat2 = 19.2354704 where id = 3;
 update chefs set long2 = 72.8439045 where id = 3;
 update chefs set lat2cosine = 0.9441725960752559 where id = 3;
 INSERT INTO chefmenu (chefid,itemphotoname,itemname,itemdesc,isveg,itemprice)
-VALUES (2, '/images/menuitem.jpg', 'maggi','great noodles',true,25.0);
+VALUES (4, '/images/menuitem.jpg', 'maggi','great noodles',true,25.0);

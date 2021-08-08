@@ -1,4 +1,3 @@
-
 import Head from 'next/head'
 import { restaurantData } from "../data/restaurantsData";
 import Restaurant from '../components/restaurant.js'
@@ -9,7 +8,6 @@ export default function Home() {
   const router = useRouter();
   const menuhref = "/menu";
    const showMenu = (e) => {
-  
     e.preventDefault()
     router.push(
       {
@@ -37,6 +35,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico"/>
       </Head>
       <main className="mycontainer">
+        <div className = "restaurantContainer">
       {restaurantDataArray.map((restaurant, index) => {
         console.log (restaurant.menu);
           let menuString = JSON.stringify(restaurant.menu)
@@ -62,17 +61,24 @@ export default function Home() {
             signaturedishimage={restaurant.signaturedishimage} 
             chefimage={restaurant.chefimage}/>
             </a>
+         
           );
+         
         })}
 
 
- 
+</div>
       </main>
       <style jsx global>{`
       .mycontainer{
         margin:0 auto;
-        width:90%;
+        width:96%;
         font-family: arial;
+       
+      }
+      .restaurantContainer{
+        display: grid;
+        place-items: center;
       }
       a{
         text-decoration:none;

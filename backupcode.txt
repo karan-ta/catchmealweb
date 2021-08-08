@@ -42,3 +42,7 @@ fun getMenuData():String
     }
     return myMenuData
 }
+
+  {/* <div className = {joinAll(styles.restaurant,styles.restaurantlastrow)}>
+   Veg Treat Restaurant
+   </div> */}

@@ -1,0 +1,50 @@
+.menuContainer{
+
+}
+.leftContainer{
+width:79%;
+float:left;
+border-right:1px solid #aaa;
+}
+@media only screen and (max-width: 980px) {
+    .leftContainer {
+        width:100%;
+    }
+}
+.rightContainer{
+width:20%;
+float:right;
+}
+.customimg {
+    object-fit: contain;
+    width: 100% !important;
+    position: relative !important;
+    height: unset !important;
+  }
+  
+  .unsetimg {
+    width: 100%;
+  }
+  .unsetimg > div {
+    position: unset !important;
+  }
+.chefImageContainer{
+float:left;
+width:34%;
+border:1px solid red;
+
+}
+.chefImageInnerContainer{
+    width:40%;
+    margin:0 auto;
+    border:1px solid blue;
+}
+.chefBioContainer{
+float:right;
+width:64%;
+border:1px solid blue;
+}
+.menuchefimg{
+    border-radius: 50%;
+    
+  }

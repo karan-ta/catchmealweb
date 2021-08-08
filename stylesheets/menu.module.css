@@ -1,0 +1,67 @@
+.clearspacer{
+    clear:both;
+  }
+  .chefbiotext{
+    clear:both;
+  }
+     .hearticon{
+      float:left;
+      margin-right:10px;
+          }
+  .bottom10{
+    margin-bottom:10px;
+  }
+.zeropadding{
+padding:0px;
+margin:0px;
+}    
+.chefmenuheader{
+width:80%;
+margin-top:20px;
+color:#333;
+}    
+.floatleft{
+float:left;
+}    
+.floatright{
+float:right;
+}
+.mycontainer{
+font-family: arial;
+margin:0px;
+margin:0px;
+padding:0px;
+width:96%;
+}
+
+
+.leftpagecontainer{
+  float:left;
+
+  margin:0px;
+padding:0px;
+}
+
+.menuchefimg{
+border-radius: 50%;
+
+}
+.menuchefimgdiv{
+margin-left:40px;
+margin-top:30px;
+}
+.container{
+margin:0px;
+padding:0px;
+}
+@media only screen and (min-width: 980px) {
+.leftpagecontainer {
+  border-right:1px solid #aaa;
+  width:79%;
+}
+}
+@media only screen and (max-width: 980px) {
+  .leftpagecontainer { 
+    width:99%;
+  }
+}
