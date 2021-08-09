@@ -42,7 +42,7 @@ export default function Menu(props) {
         Wayne's Menu for Friday - July 23
         </h4>
         </div>
-      <div className = "bottom10">
+      <div className = "topbottom10">
         {router.query.cuisine}
       </div>
 
