@@ -1,14 +1,10 @@
 import { Component } from 'react'
 import eventBus from "./EventBus";
-
+//eventbus is not used but kept here to easily copy from later
 export default class Cart extends Component {
     constructor(props) {
         super(props)
-        this.state = {
-          cart:[],
-          cartTotal:0
-
-        };
+     
      this.props = props;
       }
       //called when cart is empty and when new line item is added to cart.
@@ -88,8 +84,8 @@ export default class Cart extends Component {
      
           return ( 
            
-        <div className="rightpagecontainer">
-        {this.state.cart.map((cartItem, index) => {
+        <div>
+        {this.props.cart.map((cartItem, index) => {
             return (
                 <div className="lineItemContainer">
         <div className="cartitemqty">{cartItem.itemqty}</div>
@@ -100,7 +96,7 @@ export default class Cart extends Component {
         </div> 
         )})}
         <div className="cartTotalLabel">Total: </div>
-            <div className="cartTotalValue">{this.state.cartTotal}</div>
+            <div className="cartTotalValue">{this.props.cartTotal}</div>
          <style jsx global>{`
          .lineItemContainer{
            border-bottom:1px solid #aaa;
@@ -130,17 +126,8 @@ export default class Cart extends Component {
            float:right;
            margin-right:10%;
          }
-         .rightpagecontainer{
-         
-            width:20%;
-            float:right;
-           
-          }
-          @media only screen and (max-width: 980px) {
-            .rightpagecontainer {
-                display: none;
-            }
-        }
+       
+       
 `}</style>
         </div>
         )}

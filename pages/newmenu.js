@@ -2,15 +2,98 @@ import { menuItemData } from "../data/menuItemData";
 import styles from '../stylesheets/newmenu.module.css'
 import Cart from '../components/Cart.js'
 import Image from 'next/image'
-import { useRouter } from 'next/router'
+import { withRouter } from 'next/router'
 import { BsHeart } from 'react-icons/bs';
-import MenuItem from '../components/menuitem.js'
-export default function Newmenu(props) {
-    const router = useRouter();
-    console.log (router.query.menu);
-    const menuDataRcvd = JSON.parse(router.query.menu);
-    let iconStyles = { color: "red", fontSize: "1.2em" };
+import MenuItemNew from '../components/menuitemnew.js'
+import ViewCartButtonPhone from '../components/viewcartbuttonphone.js'
+import { Component } from 'react'
+
+export default withRouter(class Newmenu extends Component {
+  constructor(props)
+  {
+    super(props)
+    this.props = props;
+    console.log (this.props.router.query.menu)
+    this.menuDataRcvd = JSON.parse(this.props.router.query.menu)
+     this.iconStyles = { color: "red", fontSize: "1.2em" }
+    this.state = {
+      cart:[],
+      cartTotal:0,
+      cartQuantity:0
+    };
+ 
+  }
+  addItemToCart(data){
+    let mycart = this.state.cart;
+    let cartItem = new Object();
+      cartItem.itemqty = 1;
+      cartItem.itemname = data.itemname;
+      cartItem.itemprice = data.itemprice;
+      mycart.push(cartItem); 
+      this.setState({ cart:mycart}) 
+  }
+  addCartEvent = (data)=>{
+    let mycart = this.state.cart
+    this.state.cartTotal += Number(data.itemprice)
+    this.state.cartQuantity += 1
+    if (mycart.length==0){
+     console.log ("adding item to cart first time only once");
+     this.addItemToCart (data);
+    }
+   else
+    { 
+      let nameMatchFound = false;
+    for (let i in mycart) {
+     if (mycart[i].itemname === data.itemname)
+     {
+       nameMatchFound = true;
+       mycart[i].itemqty+=1;
+       mycart[i].itemprice = mycart[i].itemqty * data.itemprice;
+       this.setState({ cart:mycart})
+       break;
+     }
+     
+   }//end for
+   if (!nameMatchFound)
+   {
+       this.addItemToCart (data);
+   }
+  
+ } // end if cart is not empty
+    console.log(this.state.cart)
+   }
+   removeCartEvent = (data) => {
+    let mycart = this.state.cart;
+    if (mycart.length == 0)
+    {
+       // do nothing - request should not come here
+    }
+  
+    if (mycart.length > 0){
+      
+      for (let i in mycart) {
+  
+  if (mycart[i].itemname === data.itemname)
+  {
+    this.state.cartQuantity -= 1
+    this.state.cartTotal -= Number(data.itemprice);
+    mycart[i].itemqty -= 1; 
+    mycart[i].itemprice = mycart[i].itemqty * data.itemprice;
+    if (mycart[i].itemqty == 0)
+    {
+      mycart.splice(i, 1);
+    }
+    this.setState({ cart:mycart}) 
+    break;
+  }
+  
+}//end for
+    
+  }
+   }
+render(){     
 return(
+  
     <div className={styles.menuContainer}>
     <div className={styles.leftContainer}>
    
@@ -32,55 +115,32 @@ return(
         Chef Wayne's Italian Cafe
         </h4>
         <div className = {styles.topbottom10}>
-        {router.query.cuisine}
+        {this.props.router.query.cuisine}
       </div>
       <div className={styles.hearticon}>
-    <BsHeart style={iconStyles}/>
+    <BsHeart style={this.iconStyles}/>
     </div>
     <div>
-    {router.query.likes}
+    {this.props.router.query.likes}
     </div>
     <div className="chefbiotext">
       <p>
-      {router.query.bio}
+      {this.props.router.query.bio}
       </p>
     </div>
     
 </div>
 <div className={styles.menuItemContainer}>
-{menuDataRcvd.map((menuItem, index) => ( 
-    <div className={styles.menuItem}>
-    <Image 
-      src="/images/signaturedish1.jpg" // Route of the image file
-      height={185} // Desired size with correct aspect ratio
-      width={310} // Desired size with correct aspect ratio
-      alt="Your Name"
-    />  
-     <div className={styles.itemname}>
-      Veg Soup
- </div>
- <div className={styles.itempricenumber}>
- 
- 25
-    </div>
- <div className={styles.ruppeesymbol}>
- 
- &#8377;
-    </div>
-    <div className={styles.itemdesc}>
-    A soft and savory South Indian dish simple ingredients like rice lentils and seasoning fried on a griddle.
-    </div>
-   <div className={styles.cartButtonContainer}>
-    <button  className={styles.cartButton}> - </button>
-</div>
-    <div className={styles.itemQuantityContainer}>
-    3
-    </div>
-    <div className={styles.cartButtonContainer}>
-    <button className={styles.cartPlusButton}> + </button>
-    </div>
-    </div>
-   
+{this.menuDataRcvd.map((menuItem, index) => ( 
+     <MenuItemNew 
+     menuitemimage={menuItem.itemphotoname}
+     itemname={menuItem.itemname}
+     itemdesc={menuItem.itemdesc}
+     itemprice={menuItem.itemprice}
+     isveg={menuItem.isveg}
+     onaddclick = {this.addCartEvent}
+     onminusclick = {this.removeCartEvent}
+     />
 ))}
   
 </div>
@@ -88,22 +148,19 @@ return(
     </div>
     {/* left container ends */}
     <div className={styles.rightContainer}>
-<Cart/>
+      <div className={styles.clearboth}>
+<Cart
+cart={this.state.cart}
+cartTotal={this.state.cartTotal}
+/>
+</div>
     </div>
-    <div className={styles.cartFooter}>
-      <div className={styles.footerContainer}>
-        <div className={styles.cartNumItems}>[1]</div>
-        <div className={styles.viewCartLink}><a className={styles.viewCartLinkAnchor}href = "">View Cart</a></div>
-        <div className={styles.cartTotalAmount}>
- 125
+<ViewCartButtonPhone
+cartTotal={this.state.cartTotal}
+cartQuantity={this.state.cartQuantity}
+cart={this.state.cart}
+/>
     </div>
-    <div className={styles.cartTotalRuppeeSymbol}>
-    &#8377;
-    </div>
-      
-      </div>
-    </div>
-    </div>
-)
+)}
 
-}
+})

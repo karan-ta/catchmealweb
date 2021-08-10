@@ -1,0 +1,39 @@
+.cartFooter{
+    position:fixed;
+    bottom:0;
+    background-color: white;
+    width:30%;
+    border:1px solid #aaa;
+    height:50px;
+    left:35%;
+    display:grid;
+    place-items: center;
+  }
+  .footerContainer{
+    width:90%;
+    
+  }
+  .cartNumItems{
+  float:left;
+  width:10%;
+  font-weight:bold;
+  }
+  .viewCartLink{
+  float:left;
+  width:68%;
+  text-align: center;
+  
+  }
+  .viewCartLinkAnchor{
+    text-decoration: none;
+    color:#111;
+  }
+  .cartTotalAmount{
+  float:right;
+  margin-left:5px;
+  font-weight:bold;
+  }
+  .cartTotalRuppeeSymbol{
+    float:right;
+    font-weight:bold;
+  }
