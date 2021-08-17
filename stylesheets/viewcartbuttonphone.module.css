@@ -1,13 +1,19 @@
 .cartFooter{
     position:fixed;
     bottom:0;
-    background-color: white;
-    width:30%;
+    left:0;
+    background-color:#f3fafe;
+    width:100%;
     border:1px solid #aaa;
     height:50px;
-    left:35%;
     display:grid;
     place-items: center;
+  }
+  @media only screen and (min-width: 980px) {
+    .cartFooter {
+        display: none;
+        
+    }
   }
   .footerContainer{
     width:90%;
@@ -22,6 +28,7 @@
   float:left;
   width:68%;
   text-align: center;
+  cursor: pointer;
   
   }
   .viewCartLinkAnchor{

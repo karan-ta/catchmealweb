@@ -62,7 +62,7 @@ export default withRouter(class ViewCartButtonPhone extends Component {
     <div className={styles.cartFooter}>
       <div className={styles.footerContainer}>
         <div className={styles.cartNumItems}>[{this.props.cartQuantity}]</div>
-        <div className={styles.viewCartLink}><a onClick = {this.showCartPage } className={styles.viewCartLinkAnchor}>View Cart</a></div>
+        <div className={styles.viewCartLink}><a onClick = {this.showCartPage } className={styles.viewCartLinkAnchor}>Click To View Cart</a></div>
         <div className={styles.cartTotalAmount}>
         {this.props.cartTotal}
         </div>

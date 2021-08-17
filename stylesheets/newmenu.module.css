@@ -1,7 +1,6 @@
 .menuContainer{
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
-
 .leftContainer{
 width:79%;
 float:left;
@@ -18,12 +17,15 @@ border-right:1px solid #aaa;
 .rightContainer{
 width:20%;
 float:right;
+right:0;
+position: fixed;
 }
 @media only screen and (max-width: 980px) {
-  .rightpagecontainer {
+  .rightContainer {
       display: none;
   }
 }
+
 .customimg {
     object-fit: contain;
     width: 100% !important;

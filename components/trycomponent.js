@@ -6,7 +6,7 @@ function joinAll(...classes) {
     return classes.join(" ")
   }
 export default function Trycomponent(props) {
-  
+  console.log(props.signaturedishimage)
   const iconStyles = { color: "red", fontSize: "1.2em" };
     return(
 

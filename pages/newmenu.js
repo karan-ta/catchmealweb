@@ -13,6 +13,7 @@ export default withRouter(class Newmenu extends Component {
   {
     super(props)
     this.props = props;
+    console.log (this.props.router.query)
     console.log (this.props.router.query.menu)
     this.menuDataRcvd = JSON.parse(this.props.router.query.menu)
      this.iconStyles = { color: "red", fontSize: "1.2em" }
@@ -144,10 +145,10 @@ return(
 ))}
   
 </div>
-
+<br/><br/>
     </div>
     {/* left container ends */}
-    <div className={styles.rightContainer}>
+    <div className={styles.rightContainer}>test
       <div className={styles.clearboth}>
 <Cart
 cart={this.state.cart}

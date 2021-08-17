@@ -25,3 +25,33 @@ update chefs set long2 = 72.8439045 where id = 3;
 update chefs set lat2cosine = 0.9441725960752559 where id = 3;
 INSERT INTO chefmenu (chefid,itemphotoname,itemname,itemdesc,isveg,itemprice)
 VALUES (4, '/images/menuitem.jpg', 'maggi','great noodles',true,25.0);
+
+todo
+restaurant integration with responsive ui - done 
+refresh react issue
+deployment
+payment - https://developers.googleblog.com/2020/06/simpler-google-pay-integration-for-react-web-developers.html
+notification for restaurant
+delivery address.
+like feature
+center chef bio container on phone
+do port forwarding on both the ports when testing from mobile
+
+key id => rzp_test_MAVdJtlc3h9K7x
+key secret => CxddGtImY1enXfYnoQjDUumU
+curl -u rzp_test_MAVdJtlc3h9K7x:CxddGtImY1enXfYnoQjDUumU \
+-X POST https://api.razorpay.com/v1/orders \
+-H "content-type: application/json" \
+-d '{
+  "amount": 50000,
+  "currency": "INR",
+  "receipt": "receipt#1"
+}'
+val payload = mapOf("amount" to 50000, "currency" to "INR","receipt" to "receipt#1")
+val headers = mapOf("content-type" to "application/json")
+val r = post("https://api.razorpay.com/v1/orders", auth=BasicAuthorization("rzp_test_MAVdJtlc3h9K7x", "CxddGtImY1enXfYnoQjDUumU"))
+
+{"id":"order_HltjE62WQC9Jpr","entity":"order","amount":50000,"amount_paid":0,"amount_due":50000,"currency":"INR","receipt":"receipt#1","offer_id":null,"status":"created","attempts":0,"notes":[],"created_at":1629123113}
+
+pay_HluoBAWv5pOmnV
+269f78e022878c1ff218f4e75602ee7eb58415573c7e3cdf1051239258b0863f

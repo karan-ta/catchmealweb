@@ -35,7 +35,7 @@ export default class MenuItemNew extends Component {
         return( 
 <div className={styles.menuItem}>
     <Image 
-      src="/images/signaturedish1.jpg" // Route of the image file
+      src={this.props.menuitemimage} // Route of the image file
       height={185} // Desired size with correct aspect ratio
       width={310} // Desired size with correct aspect ratio
       alt="Your Name"

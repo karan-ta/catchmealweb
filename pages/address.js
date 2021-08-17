@@ -1,20 +1,23 @@
 import Head from 'next/head'
-import AutoComplete from 'react-google-autocomplete';
+import Trycomponent from '../components/trycomponent.js'
+import styles from '../stylesheets/address.module.css'
+import { restaurantData } from "../data/restaurantsData";
+import { useRouter } from 'next/router'
 import { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete' ;
 import { useState,useEffect } from 'react';
-import Restaurant from '../components/restaurant.js'
-import { useRouter } from 'next/router'
 export default function Address() {
-    const menuhref = "/menu";
-    const router = useRouter();
-    const [value, setValue] = useState(null);
-    const [restaurantsArray, setRestaurantsResponse] = useState(new Array());
+    // const restaurantDataArray = JSON.parse(restaurantData)
+    const router = useRouter()
+    const menuhref = "/newmenu"
+    const [value, setValue] = useState(null)
+    const [restaurantDataArray, setRestaurantsResponse] = useState(new Array());
+  
     const showMenu = (e) => {
       e.preventDefault()
       router.push(
         {
-        pathname: '/menu',
+        pathname: '/newmenu',
         query: {
           index:e.currentTarget.getAttribute("index"),
           chefname:e.currentTarget.getAttribute("chefname"),
@@ -28,65 +31,72 @@ export default function Address() {
         }
         //send menu above
       },
-      '/menu',
+      '/newmenu',
       )
     }
     useEffect(() => {
-        // Update the document title using the browser API
-        if (value != null){ 
-       console.log (value.label);
-       geocodeByAddress(value.label)
-  .then(results => getLatLng(results[0]))
-  .then(({ lat, lng }) =>
-    // console.log('Successfully got latitude and longitude', { lat, lng });
-    fetch("http://0.0.0.0:8080/"+lat+"/"+lng)
-    .then(res => res.json())
-    .then(
-      (response) => {
-       setRestaurantsResponse (response);
-       console.log(response);
-      },
-      (error) => {
-     
+      // Update the document title using the browser API
+      if (value != null){ 
+     console.log (value.label);
+     geocodeByAddress(value.label)
+.then(results => getLatLng(results[0]))
+.then(({ lat, lng }) =>
+  // console.log('Successfully got latitude and longitude', { lat, lng });
+  fetch("http://0.0.0.0:8080/"+lat+"/"+lng,{
+    
+    mode:"cors"
+  })
+  .then(res => res.json())
+  .then(
+    (response) => {
+      console.log(response);
+     setRestaurantsResponse (response);
+    
+    },
+    (error) => {
+   
+    }
+  )
+);
       }
-    )
-  );
-        }
-      },[value]);
-    return (
-        <div className="container">
-          <Head>
+    },[value]);
+    return(
+      <div className={styles.homepagecontainer}>
+        <Head>
             <title>Select a chef near you</title>
             <link rel="icon" href="/favicon.ico"/>
           </Head>
-          {restaurantsArray.length > 0  &&
-            <main className="mycontainer">
-           {restaurantsArray.map((restaurant, index) => (
-              <a 
-              href={menuhref}
-              index={index}
-              chefname={restaurant.chefname} 
-              cuisine={restaurant.cuisine}
-              likes={restaurant.likes} 
-              signaturedishimage={restaurant.signaturedishimage} 
-              chefimage={restaurant.chefimage}
-              bio={restaurant.bio}
-              cheftitlelabel={restaurant.cheftitlelabel}
-              menu={JSON.stringify(restaurant.menuList)}
-              onClick={showMenu}
-              >
-           <Restaurant 
-           chefname={restaurant.chefname} 
-           cuisine={restaurant.cuisinename}
-           likes={restaurant.likes} 
-           signaturedishimage={restaurant.signaturedishimagename} 
-           chefimage={restaurant.chefphotoname}/>
-           </a>
-           ))}
-              </main>
-          }
-          {restaurantsArray.length == 0  &&
-            <main className="mycontainer">
+          {restaurantDataArray.length > 0  &&
+      <div className = {styles.restaurantcontainer}>
+            <h1>Chefs List</h1>
+            {restaurantDataArray.map((restaurant, index) => ( 
+                <a 
+                href={menuhref}
+                index={index}
+                chefname={restaurant.chefname} 
+                cuisine={restaurant.cuisinename}
+                likes={restaurant.likes} 
+                signaturedishimage={restaurant.signaturedishimagename} 
+                chefimage={restaurant.chefphotoname}
+                bio={restaurant.bio}
+                cheftitlelabel={restaurant.cheftitlelabel}
+                menu={JSON.stringify(restaurant.menuList)}
+                onClick={showMenu}
+                >
+        <Trycomponent
+          key={index}
+          chefname={restaurant.chefname} 
+          cuisine={restaurant.cuisinename}
+          likes={restaurant.likes} 
+          signaturedishimage={restaurant.signaturedishimagename} 
+          chefimage={restaurant.chefphotoname}/>
+          </a>
+      
+            ))}
+              </div>
+}
+{restaurantDataArray.length == 0  &&
+            <div className={styles.addressContainer}>
     <h1>Address</h1>
     <br/>
     <div>
@@ -99,9 +109,7 @@ export default function Address() {
 />
    
 </div>
-</main>
+</div>
           }
-            <style jsx global>{`
-            `}</style>
-            </div>
-    )}
+              </div> 
+            )}
