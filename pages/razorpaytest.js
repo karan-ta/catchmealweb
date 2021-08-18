@@ -4,8 +4,8 @@ export default function Razorpaytest(props) {
         const response = {
             razorpay_payment_id:"pay_HluoBAWv5pOmnV",
             razorpay_order_id:"order_HltjE62WQC9Jpr",
-            razorpay_signature:"269f78e022878c1ff218f4e75602ee7eb58415573c7e3cdf1051239258b0863f"
-
+            razorpay_signature:"269f78e022878c1ff218f4e75602ee7eb58415573c7e3cdf1051239258b0863f",
+            razorpay_secret:"CxddGtImY1enXfYnoQjDUumU",
         }
         const paramString = "paymentid="+response.razorpay_payment_id+"&orderid="+response.razorpay_order_id+"&signature="+response.razorpay_signature
         fetch("http://0.0.0.0:8080/razorpaysignature",{
