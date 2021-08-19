@@ -2,12 +2,12 @@ export default function Razorpaytest(props) {
     function testSignatureApi ()
     {
         const response = {
-            razorpay_payment_id:"pay_HluoBAWv5pOmnV",
-            razorpay_order_id:"order_HltjE62WQC9Jpr",
-            razorpay_signature:"269f78e022878c1ff218f4e75602ee7eb58415573c7e3cdf1051239258b0863f",
+            razorpay_payment_id:"pay_Hn4ZTAOokANB1e",
+            razorpay_order_id:"order_Hn4YwQQfO0cPZy",
+            razorpay_signature:"c32f15bfedaca1c90997fbe164414cb742943595957e57172c515024d38f1dd4",
             razorpay_secret:"CxddGtImY1enXfYnoQjDUumU",
         }
-        const paramString = "paymentid="+response.razorpay_payment_id+"&orderid="+response.razorpay_order_id+"&signature="+response.razorpay_signature
+        const paramString = "paymentid="+response.razorpay_payment_id+"&orderid="+response.razorpay_order_id+"&signature="+response.razorpay_signature+"&razorpay_secret="+response.razorpay_secret
         fetch("http://0.0.0.0:8080/razorpaysignature",{
             mode:"cors",
             method: "POST",
@@ -80,25 +80,10 @@ export default function Razorpaytest(props) {
                 "image": "https://example.com/your_logo",
                 "order_id": orderApiData.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
                 "handler": function (response){
-                    alert(response.razorpay_payment_id);
-                    alert(response.razorpay_order_id);
-                    alert(response.razorpay_signature)
-                    const paramString = "paymentid="+response.razorpay_payment_id+"&orderid="+response.razorpay_order_id+"&signature="+response.razorpay_signature
-                    fetch("http://0.0.0.0:8080/razorpaysignature",{
-                        mode:"cors",
-                        method: "POST",
-                        body: paramString
-                      })
-                      .then(res => res.json())
-                      .then(
-                        (response) => {
-                        console.log (response)    
-                         return response
-                        },
-                        (error) => {
+                    console.log (response.razorpay_payment_id);
+                    console.log (response.razorpay_order_id);
+                    console.log (response.razorpay_signature)
 
-                        }
-                      )
                 },
                 "prefill": {
                     "name": "Gaurav Kumar",
@@ -141,7 +126,7 @@ export default function Razorpaytest(props) {
                     <a
                        id = "rzp-button1"
                         className="App-link"
-                        onClick={testSignatureApi}
+                        onClick={callCreateOrderApi}
                         target="_blank"
                         rel="noopener noreferrer"
                     >

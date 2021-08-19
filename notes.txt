@@ -55,3 +55,20 @@ val r = post("https://api.razorpay.com/v1/orders", auth=BasicAuthorization("rzp_
 
 pay_HluoBAWv5pOmnV
 269f78e022878c1ff218f4e75602ee7eb58415573c7e3cdf1051239258b0863f
+
+=======================================================================
+
+pay_Hn4ZTAOokANB1e
+order_Hn4YwQQfO0cPZy
+c32f15bfedaca1c90997fbe164414cb742943595957e57172c515024d38f1dd4
+
+CREATE TABLE orders (
+	id serial PRIMARY KEY,
+	chefid integer NOT NULL,
+	amount double precision NOT NULL,
+	orderid varchar (200),
+  paymentid varchar (200),
+  signature varchar (200),
+  status varchar (200),
+	timestamp TIMESTAMP NOT NULL,
+);
