@@ -70,5 +70,17 @@ CREATE TABLE orders (
   paymentid varchar (200),
   signature varchar (200),
   status varchar (200),
-	timestamp TIMESTAMP NOT NULL,
+	timestamp TIMESTAMP NOT NULL
 );
+
+Alter table orders ALTER COLUMN timestamp TYPE bigint;
+
+review menuitem , cart 
+test on phone 
+store cart in database.
+
+paytm 
+deploy
+refresh issue
+notification to shippers 
+

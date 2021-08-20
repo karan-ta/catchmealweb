@@ -1,37 +1,38 @@
 export default function Razorpaytest(props) {
-    function testSignatureApi ()
+    function callSignatureApi (response)
     {
-        const response = {
-            razorpay_payment_id:"pay_Hn4ZTAOokANB1e",
-            razorpay_order_id:"order_Hn4YwQQfO0cPZy",
-            razorpay_signature:"c32f15bfedaca1c90997fbe164414cb742943595957e57172c515024d38f1dd4",
-            razorpay_secret:"CxddGtImY1enXfYnoQjDUumU",
-        }
-        const paramString = "paymentid="+response.razorpay_payment_id+"&orderid="+response.razorpay_order_id+"&signature="+response.razorpay_signature+"&razorpay_secret="+response.razorpay_secret
-        fetch("http://0.0.0.0:8080/razorpaysignature",{
-            mode:"cors",
-            method: "POST",
-            headers: new Headers({
-                'Content-Type': 'application/x-www-form-urlencoded', // <-- Specifying the Content-Type
-       }),
-            body: paramString,
-          })
-          .then(res => res.json())
-          .then(
-            (response) => {
-            console.log (response)    
-             return response
-            },
-            (error) => {
-
-            }
-          )
+        const paramString = "paymentid="+response.razorpay_payment_id+"&orderid="+response.razorpay_order_id+"&signature="+response.razorpay_signature+"&razorpay_secret=CxddGtImY1enXfYnoQjDUumU"
+                    fetch("http://0.0.0.0:8080/razorpaysignature",{
+                        mode:"cors",
+                        method: "POST",
+                        headers: new Headers({
+                            'Content-Type': 'application/x-www-form-urlencoded', // <-- Specifying the Content-Type
+                   }),
+                        body: paramString,
+                      })
+                      .then(res => res.json())
+                      .then(
+                        (response) => {
+                        console.log (response)    
+                         return response
+                        },
+                        (error) => {
+            
+                        }
+                      )
+             
     }
     function callCreateOrderApi ()
     {
+    const paramString = "chefid=1&amount=50000"
     fetch("http://0.0.0.0:8080/razorpaytesting",{
     mode:"cors",
     method: "POST",
+    headers: new Headers({
+        'Content-Type': 'application/x-www-form-urlencoded', // <-- Specifying the Content-Type
+}),
+    body: paramString,
+
   })
   .then(res => res.json())
   .then(
@@ -62,11 +63,17 @@ export default function Razorpaytest(props) {
 			alert('Razorpay SDK failed to load. Are you online?')
 			return
         }
+        const paramString = "chefid=1&amount=50000"
         fetch("http://0.0.0.0:8080/razorpaytesting",{
-            mode:"cors",
-            method: "POST",
-          })
-          .then(res => res.json())
+        mode:"cors",
+        method: "POST",
+        headers: new Headers({
+            'Content-Type': 'application/x-www-form-urlencoded', // <-- Specifying the Content-Type
+    }),
+        body: paramString,
+    
+      })
+      .then(res => res.json())
           .then(
             (response) => {
             console.log (response) 
@@ -80,10 +87,10 @@ export default function Razorpaytest(props) {
                 "image": "https://example.com/your_logo",
                 "order_id": orderApiData.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
                 "handler": function (response){
-                    console.log (response.razorpay_payment_id);
-                    console.log (response.razorpay_order_id);
+                    console.log (response.razorpay_payment_id)
+                    console.log (response.razorpay_order_id)
                     console.log (response.razorpay_signature)
-
+                    callSignatureApi (response)
                 },
                 "prefill": {
                     "name": "Gaurav Kumar",
@@ -126,7 +133,7 @@ export default function Razorpaytest(props) {
                     <a
                        id = "rzp-button1"
                         className="App-link"
-                        onClick={callCreateOrderApi}
+                        onClick={displayRazorpay}
                         target="_blank"
                         rel="noopener noreferrer"
                     >

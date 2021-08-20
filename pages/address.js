@@ -21,6 +21,7 @@ export default function Address() {
         query: {
           index:e.currentTarget.getAttribute("index"),
           chefname:e.currentTarget.getAttribute("chefname"),
+          chefid:e.currentTarget.getAttribute("chefid"),
           cuisine:e.currentTarget.getAttribute("cuisine"),
           likes:e.currentTarget.getAttribute("likes"),
           signaturedishimage:e.currentTarget.getAttribute("signaturedishimage"),
@@ -73,6 +74,7 @@ export default function Address() {
                 <a 
                 href={menuhref}
                 index={index}
+                chefid={restaurant.id}
                 chefname={restaurant.chefname} 
                 cuisine={restaurant.cuisinename}
                 likes={restaurant.likes} 
