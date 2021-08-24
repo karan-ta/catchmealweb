@@ -25,9 +25,18 @@ export default class Cart extends Component {
     {
              
     }
-      testfunc(){
-        alert ("hi")
+      testfunc(e){
+        fetch('http://0.0.0.0:8080/testrazorpaysignature', {
+        mode:"cors", 
+        method: "POST",
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({"cartItems":[{"orderId":"order_Hn4YwQQfO0cPZy","paymentId":"pay_Hn4ZTAOokANB1e","secret":"XfYnoQjDUumU","signature":"c32f15bfedaca1c90997fbe164414cb742943595957e57172c515024d38f1dd4","itemName":"test","itemPrice":10,"itemQuantity":1}]})
+}).then(res => res.json())
+  .then(res => console.log(res));
       }
+
        displayRazorpay = async (e) => {
         console.log (this)
         this.testfunc ()
@@ -36,7 +45,6 @@ export default class Cart extends Component {
           alert('Razorpay SDK failed to load. Are you online?')
           return
             }
-            alert (this.props.cartTotal)
             const paramString = "chefid="+this.props.chefid+"&amount="+this.props.cartTotal*100
             fetch("http://0.0.0.0:8080/razorpaytesting",{
             mode:"cors",
@@ -196,7 +204,7 @@ export default class Cart extends Component {
         {this.props.cart.map((cartItem, index) => {
             return (
                 <div className="lineItemContainer">
-        <div className="cartitemqty">{Number(cartItem.itemqty).toFixed(0)}</div>
+        <div className="cartitemqty">{cartItem.itemqty}</div>
         <div className="cartitemcross">x</div>            
         <div className="cartitemname">{cartItem.itemname}</div>
         <div className="cartitemprice">{cartItem.itemprice}</div>
@@ -209,7 +217,7 @@ export default class Cart extends Component {
             <div className="orderNowButtonContainer">
             <button 
             className="orderNowButton"
-            onClick={this.displayRazorpay}
+            onClick={this.testfunc}
             >
               Order Now
             </button>

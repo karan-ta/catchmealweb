@@ -13,6 +13,7 @@ export default function CartPage(props) {
         <Cart
         cart={JSON.parse(router.query.cart)}
         cartTotal={router.query.cartTotal}
+        chefid={router.query.chefid}
         />
         </div>
 

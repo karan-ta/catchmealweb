@@ -24,6 +24,7 @@ export default withRouter(class ViewCartButtonPhone extends Component {
           query: {
             cart:JSON.stringify(this.props.cart),
             cartTotal:this.props.cartTotal,
+            chefid:this.props.chefid,
           }
           //send menu above
         },

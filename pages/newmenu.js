@@ -19,25 +19,25 @@ export default withRouter(class Newmenu extends Component {
      this.iconStyles = { color: "red", fontSize: "1.2em" }
     this.state = {
       cart:[],
-      cartTotal:"0.00",
-      cartQuantity:0
+      cartTotal:0,
+      cartQuantity:0 // for phone => total cart items in cart.
     };
  
   }
+  //below is called first time
   addItemToCart(data){
     let mycart = this.state.cart
     let cartItem = new Object()
-      cartItem.itemqty = "1.00"
+      cartItem.itemqty = 1
       cartItem.itemname = data.itemname
-      cartItem.itemprice = data.itemprice
-      alert (cartItem.itemqty)
+      cartItem.itemprice = Number (data.itemprice)
       mycart.push(cartItem)
       this.setState({ cart:mycart}) 
   }
   addCartEvent = (data)=>{
     let mycart = this.state.cart
-    this.state.cartTotal =   (Number(this.state.cartTotal) + Number(data.itemprice)).toFixed (2)
-    this.state.cartQuantity += 1.00
+    this.state.cartTotal +=   Number(data.itemprice)
+    this.state.cartQuantity += 1
     if (mycart.length==0){
      console.log ("adding item to cart first time only once");
      this.addItemToCart (data);
@@ -49,11 +49,8 @@ export default withRouter(class Newmenu extends Component {
      if (mycart[i].itemname === data.itemname)
      {
        nameMatchFound = true;
-       mycart[i].itemqty=(1.00 + Number (mycart[i].itemqty)).toFixed(2)
-       alert (mycart[i].itemqty)
-       alert (data.itemprice)
-       alert (mycart[i].itemqty * data.itemprice)
-       mycart[i].itemprice = (mycart[i].itemqty * data.itemprice).toFixed (2)
+       mycart[i].itemqty += 1
+       mycart[i].itemprice = mycart[i].itemqty * Number (data.itemprice)
        this.setState({ cart:mycart})
        break;
      }
@@ -83,7 +80,7 @@ export default withRouter(class Newmenu extends Component {
     this.state.cartQuantity -= 1.00
     this.state.cartTotal -= Number(data.itemprice);
     mycart[i].itemqty -= 1.00; 
-    mycart[i].itemprice = mycart[i].itemqty * data.itemprice;
+    mycart[i].itemprice = mycart[i].itemqty * Number(data.itemprice)
     if (mycart[i].itemqty == 0.00)
     {
       mycart.splice(i, 1);
@@ -152,7 +149,7 @@ return(
 <br/><br/>
     </div>
     {/* left container ends */}
-    <div className={styles.rightContainer}>test
+    <div className={styles.rightContainer}>
       <div className={styles.clearboth}>
 <Cart
 cart={this.state.cart}
@@ -165,6 +162,7 @@ chefid={this.props.router.query.chefid}
 cartTotal={this.state.cartTotal}
 cartQuantity={this.state.cartQuantity}
 cart={this.state.cart}
+chefid={this.props.router.query.chefid}
 />
     </div>
 )}

@@ -75,12 +75,15 @@ CREATE TABLE orders (
 
 Alter table orders ALTER COLUMN timestamp TYPE bigint;
 
-review menuitem , cart 
-test on phone 
+
+review menuitem , cart -> removecart - done
+test on phone - done 
 store cart in database.
-
-paytm 
-deploy
 refresh issue
-notification to shippers 
+deploy  
 
+add category of courier , shopping 
+orders list for shippers to assign manually.
+paytm 
+
+curl -X POST --header "Content-Type: application/json" --data '{"orderId":"order_Hn4YwQQfO0cPZy","paymentId":"pay_Hn4ZTAOokANB1e","secret":"XfYnoQjDUumU","signature":"c32f15bfedaca1c90997fbe164414cb742943595957e57172c515024d38f1dd4","itemName":"test","itemPrice":10,"itemQuantity":1}' http://0.0.0.0:8080/testrazorpaysignature
