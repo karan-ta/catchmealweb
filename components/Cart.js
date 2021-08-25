@@ -25,21 +25,22 @@ export default class Cart extends Component {
     {
              
     }
-      testfunc(e){
+    testrazorpaysignature=(e)=>{
+        
         fetch('http://0.0.0.0:8080/testrazorpaysignature', {
         mode:"cors", 
         method: "POST",
   headers: {
     'Content-Type': 'application/json'
   },
-  body: JSON.stringify({"cartItems":[{"orderId":"order_Hn4YwQQfO0cPZy","paymentId":"pay_Hn4ZTAOokANB1e","secret":"XfYnoQjDUumU","signature":"c32f15bfedaca1c90997fbe164414cb742943595957e57172c515024d38f1dd4","itemName":"test","itemPrice":10,"itemQuantity":1}]})
+  body: JSON.stringify({"orderId":"order_Hn4YwQQfO0cPZy","paymentId":"pay_Hn4ZTAOokANB1e","secret":"XfYnoQjDUumU","signature":"c32f15bfedaca1c90997fbe164414cb742943595957e57172c515024d38f1dd4","cartItems":this.props.cart})
 }).then(res => res.json())
   .then(res => console.log(res));
       }
 
        displayRazorpay = async (e) => {
-        console.log (this)
-        this.testfunc ()
+       const cartToBeSaved = this.props.cart
+       const mychefid = this.props.chefid
         const res = await this.loadScript('https://checkout.razorpay.com/v1/checkout.js')
         if (!res) {
           alert('Razorpay SDK failed to load. Are you online?')
@@ -76,9 +77,9 @@ export default class Cart extends Component {
                             mode:"cors",
                             method: "POST",
                             headers: new Headers({
-                                'Content-Type': 'application/x-www-form-urlencoded', // <-- Specifying the Content-Type
+                              'Content-Type': 'application/json'
                        }),
-                            body: paramString,
+                       body: JSON.stringify({"chefId":mychefid,"orderId":response.razorpay_order_id,"paymentId":response.razorpay_payment_id,"secret":"CxddGtImY1enXfYnoQjDUumU","signature":response.razorpay_signature,"cartItems":cartToBeSaved})
                           })
                           .then(res => res.json())
                           .then(
@@ -217,7 +218,7 @@ export default class Cart extends Component {
             <div className="orderNowButtonContainer">
             <button 
             className="orderNowButton"
-            onClick={this.testfunc}
+            onClick={this.displayRazorpay}
             >
               Order Now
             </button>

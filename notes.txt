@@ -78,7 +78,7 @@ Alter table orders ALTER COLUMN timestamp TYPE bigint;
 
 review menuitem , cart -> removecart - done
 test on phone - done 
-store cart in database.
+store cart in database.- done
 refresh issue
 deploy  
 
@@ -87,3 +87,22 @@ orders list for shippers to assign manually.
 paytm 
 
 curl -X POST --header "Content-Type: application/json" --data '{"orderId":"order_Hn4YwQQfO0cPZy","paymentId":"pay_Hn4ZTAOokANB1e","secret":"XfYnoQjDUumU","signature":"c32f15bfedaca1c90997fbe164414cb742943595957e57172c515024d38f1dd4","itemName":"test","itemPrice":10,"itemQuantity":1}' http://0.0.0.0:8080/testrazorpaysignature
+
+orderitems table
+id orderid chefid itemname itemqty itemprice timestamp
+
+CREATE TABLE orderitems (
+	id serial PRIMARY KEY,
+  orderid varchar (200),
+	chefid integer NOT NULL,
+	itemname varchar (500),
+  itemqty integer,
+  itemprice double precision,
+	timestamp TIMESTAMP NOT NULL
+);
+make one page for restaurants 
+make one page for menu
+
+use get server side props for both 
+---------------------------------------------
+

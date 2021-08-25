@@ -95,10 +95,8 @@ export default withRouter(class Newmenu extends Component {
    }
 render(){     
 return(
-  
     <div className={styles.menuContainer}>
     <div className={styles.leftContainer}>
-   
 <div className={styles.unsetimg}>
   <Image  src="/images/profileheader.jpg" layout="fill" className={styles.customimg} />
 </div>

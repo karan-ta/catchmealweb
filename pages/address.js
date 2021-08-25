@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Link from 'next/link'
 import Trycomponent from '../components/trycomponent.js'
 import styles from '../stylesheets/address.module.css'
 import { restaurantData } from "../data/restaurantsData";
@@ -71,8 +72,9 @@ export default function Address() {
       <div className = {styles.restaurantcontainer}>
             <h1>Chefs List</h1>
             {restaurantDataArray.map((restaurant, index) => ( 
-                <a 
-                href={menuhref}
+               <Link href={menuhref}>
+               <a
+               
                 index={index}
                 chefid={restaurant.id}
                 chefname={restaurant.chefname} 
@@ -93,7 +95,7 @@ export default function Address() {
           signaturedishimage={restaurant.signaturedishimagename} 
           chefimage={restaurant.chefphotoname}/>
           </a>
-      
+          </Link>
             ))}
               </div>
 }
