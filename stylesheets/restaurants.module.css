@@ -1,0 +1,16 @@
+.restaurantcontainer{
+    margin-bottom:20px;
+    width:85%;
+    margin:auto;
+    margin-bottom: 20px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    /* border: 1px solid #aaa; */
+}
+
+@media only screen and (max-width: 980px) {
+    /* phone */
+    .restaurantcontainer{
+        display:grid;
+        place-items: center;
+    }
+}

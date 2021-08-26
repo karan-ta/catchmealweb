@@ -44,20 +44,15 @@ export default function Address() {
 .then(results => getLatLng(results[0]))
 .then(({ lat, lng }) =>
   // console.log('Successfully got latitude and longitude', { lat, lng });
-  fetch("http://0.0.0.0:8080/"+lat+"/"+lng,{
-    
-    mode:"cors"
-  })
-  .then(res => res.json())
-  .then(
-    (response) => {
-      console.log(response);
-     setRestaurantsResponse (response);
-    
-    },
-    (error) => {
-   
-    }
+  router.push(
+   {
+        pathname: '/restaurants/[lat]/[lng]',
+   query: {
+     lat:lat,
+     lng:lng
+       }
+  }
+ 
   )
 );
       }
