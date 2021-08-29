@@ -9,7 +9,7 @@ function Restaurants({ data }) {
   <h1>Chefs List</h1>
     {data.map((restaurant, index) => ( 
 
-    <Link href="/newmenu">
+    <Link href={"/"+restaurant.chefname}>
     <a>
     <Trycomponent
           key={index}
