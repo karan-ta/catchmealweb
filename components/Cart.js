@@ -31,7 +31,7 @@ export default class Cart extends Component {
     }
     testrazorpaysignature=(e)=>{
         
-        fetch('http://0.0.0.0:8080/testrazorpaysignature', {
+        fetch(process.env.api_url+'testrazorpaysignature', {
         mode:"cors", 
         method: "POST",
   headers: {
@@ -51,7 +51,7 @@ export default class Cart extends Component {
           return
             }
             const paramString = "chefid="+this.props.chefid+"&amount="+this.props.cartTotal*100
-            fetch("http://0.0.0.0:8080/razorpaytesting",{
+            fetch(process.env.api_url+"razorpaytesting",{
             mode:"cors",
             method: "POST",
             headers: new Headers({
@@ -77,7 +77,7 @@ export default class Cart extends Component {
                         console.log (response.razorpay_order_id)
                         console.log (response.razorpay_signature)
                         const paramString = "paymentid="+response.razorpay_payment_id+"&orderid="+response.razorpay_order_id+"&signature="+response.razorpay_signature+"&razorpay_secret=CxddGtImY1enXfYnoQjDUumU"
-                        fetch("http://0.0.0.0:8080/razorpaysignature",{
+                        fetch(process.env.api_url+"razorpaysignature",{
                             mode:"cors",
                             method: "POST",
                             headers: new Headers({
