@@ -80,14 +80,14 @@ review menuitem , cart -> removecart - done
 test on phone - done 
 store cart in database.- done
 refresh issue - done
-deploy - 8 hours 
-remove cart button - 1 hour
+deploy - done
+persist shop wise cart across refresh - 8 hours 
 delivery address after payment complete - take building name from initial selection - 8 hours
 restrict non yogi nagar people. - 1 hour
 buy domain name and integrate - 2 hours
 persist shop wise cart across refresh - 8 hours 
 talk to icici integration. - 4 hours
-
+remove cart button - 1 hour
 add category of courier , shopping - 8 hours
 orders list for shippers to assign manually. - 16 hours
 start android app 
