@@ -3,6 +3,10 @@ import eventBus from "./EventBus";
 //eventbus is not used but kept here to easily copy from later
 export default class Cart extends Component {
     constructor(props) {
+      console.log ("props in cart")
+      console.log (typeof(props.cart))
+      console.log (props.cart)
+      //if from buttonphone then json.parse 
         super(props)
      this.props = props;
       }

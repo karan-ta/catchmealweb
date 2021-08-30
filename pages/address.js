@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import Trycomponent from '../components/trycomponent.js'
+// import Trycomponent from '../components/trycomponent.js'
 import styles from '../stylesheets/address.module.css'
 import { restaurantData } from "../data/restaurantsData";
 import { useRouter } from 'next/router'
@@ -10,32 +10,32 @@ import { useState,useEffect } from 'react';
 export default function Address() {
     // const restaurantDataArray = JSON.parse(restaurantData)
     const router = useRouter()
-    const menuhref = "/newmenu"
+    // const menuhref = "/newmenu"
     const [value, setValue] = useState(null)
     const [restaurantDataArray, setRestaurantsResponse] = useState(new Array());
   
-    const showMenu = (e) => {
-      e.preventDefault()
-      router.push(
-        {
-        pathname: '/newmenu',
-        query: {
-          index:e.currentTarget.getAttribute("index"),
-          chefname:e.currentTarget.getAttribute("chefname"),
-          chefid:e.currentTarget.getAttribute("chefid"),
-          cuisine:e.currentTarget.getAttribute("cuisine"),
-          likes:e.currentTarget.getAttribute("likes"),
-          signaturedishimage:e.currentTarget.getAttribute("signaturedishimage"),
-          chefimage:e.currentTarget.getAttribute("chefimage"),
-          bio:e.currentTarget.getAttribute("bio"),
-          cheftitlelabel:e.currentTarget.getAttribute("cheftitlelabel"),
-          menu:e.currentTarget.getAttribute("menu")
-        }
-        //send menu above
-      },
-      '/newmenu',
-      )
-    }
+    // const showMenu = (e) => {
+    //   e.preventDefault()
+    //   router.push(
+    //     {
+    //     pathname: '/newmenu',
+    //     query: {
+    //       index:e.currentTarget.getAttribute("index"),
+    //       chefname:e.currentTarget.getAttribute("chefname"),
+    //       chefid:e.currentTarget.getAttribute("chefid"),
+    //       cuisine:e.currentTarget.getAttribute("cuisine"),
+    //       likes:e.currentTarget.getAttribute("likes"),
+    //       signaturedishimage:e.currentTarget.getAttribute("signaturedishimage"),
+    //       chefimage:e.currentTarget.getAttribute("chefimage"),
+    //       bio:e.currentTarget.getAttribute("bio"),
+    //       cheftitlelabel:e.currentTarget.getAttribute("cheftitlelabel"),
+    //       menu:e.currentTarget.getAttribute("menu")
+    //     }
+    //     //send menu above
+    //   },
+    //   '/newmenu',
+    //   )
+    // }
     useEffect(() => {
       // Update the document title using the browser API
       if (value != null){ 
@@ -63,7 +63,7 @@ export default function Address() {
             <title>Select a chef near you</title>
             <link rel="icon" href="/favicon.ico"/>
           </Head>
-          {restaurantDataArray.length > 0  &&
+          {/* {restaurantDataArray.length > 0  &&
       <div className = {styles.restaurantcontainer}>
             <h1>Chefs List</h1>
             {restaurantDataArray.map((restaurant, index) => ( 
@@ -93,7 +93,7 @@ export default function Address() {
           </Link>
             ))}
               </div>
-}
+} */}
 {restaurantDataArray.length == 0  &&
             <div className={styles.addressContainer}>
     <h1>Address</h1>
