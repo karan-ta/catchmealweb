@@ -27,7 +27,7 @@ function Restaurants({ data }) {
   )}
 // This gets called on every request
 export async function getServerSideProps(context) {
-    const res = await fetch("http://0.0.0.0:8080/"+context.query.lat+"/"+context.query.lng)
+    const res = await fetch(process.env.api_url+context.query.lat+"/"+context.query.lng)
     const data = await res.json()
     console.log (data)
     return {props: {data}}

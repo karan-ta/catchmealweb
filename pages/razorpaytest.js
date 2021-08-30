@@ -2,7 +2,7 @@ export default function Razorpaytest(props) {
     function callSignatureApi (response)
     {
         const paramString = "paymentid="+response.razorpay_payment_id+"&orderid="+response.razorpay_order_id+"&signature="+response.razorpay_signature+"&razorpay_secret=CxddGtImY1enXfYnoQjDUumU"
-                    fetch("http://0.0.0.0:8080/razorpaysignature",{
+                    fetch(process.env.api_url+"razorpaysignature",{
                         mode:"cors",
                         method: "POST",
                         headers: new Headers({
@@ -25,7 +25,7 @@ export default function Razorpaytest(props) {
     function callCreateOrderApi ()
     {
     const paramString = "chefid=1&amount=50000"
-    fetch("http://0.0.0.0:8080/razorpaytesting",{
+    fetch(process.env.api_url+"razorpaytesting",{
     mode:"cors",
     method: "POST",
     headers: new Headers({

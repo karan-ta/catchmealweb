@@ -165,7 +165,7 @@ chefid={this.props.data.id}
 }
 export async function getServerSideProps(context) {
   console.log (context)
-  const res = await fetch("http://0.0.0.0:8080/"+context.query.restaurantname)
+  const res = await fetch(process.env.api_url+context.query.restaurantname)
   const data = await res.json()
   // console.log (data)
   return {props: {data}}
