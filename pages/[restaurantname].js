@@ -14,12 +14,22 @@ export default class Newmenu extends Component {
     this.props = props;
     this.menuDataRcvd = this.props.data.menuList
     this.iconStyles = { color: "red", fontSize: "1.2em" }
+
     this.state = {
-      cart:[],
-      cartTotal:0,
-      cartQuantity:0 // for phone => total cart items in cart.
+    cart:[],
+    cartTotal:0,
+    cartQuantity:0 // for phone => total cart items in cart.
     };
  
+  }
+  componentDidMount(){
+    const mycart = localStorage.getItem('mooveop_cart')
+    ? JSON.parse(localStorage.getItem('mooveop_cart'))
+    : []
+    const mycarttotal = localStorage.getItem('mooveop_cart_total')
+    ? Number (localStorage.getItem('mooveop_cart_total'))
+    : 0
+    this.setState({ cart:mycart}) 
   }
   //below is called first time
   addItemToCart(data){
@@ -30,6 +40,9 @@ export default class Newmenu extends Component {
       cartItem.itemprice = Number (data.itemprice)
       mycart.push(cartItem)
       this.setState({ cart:mycart}) 
+      localStorage.setItem('mooveop_cart', JSON.stringify(mycart))
+      localStorage.setItem('mooveop_cart_total',cartItem.itemprice.toFixed(2))
+      localStorage.setItem('chefId',this.props.data.id)
   }
   addCartEvent = (data)=>{
     let mycart = this.state.cart
@@ -49,6 +62,8 @@ export default class Newmenu extends Component {
        mycart[i].itemqty += 1
        mycart[i].itemprice = mycart[i].itemqty * Number (data.itemprice)
        this.setState({ cart:mycart})
+       localStorage.setItem('mooveop_cart', JSON.stringify(mycart))
+       localStorage.setItem('mooveop_cart_total',this.state.cartTotal.toFixed(2))
        break;
      }
      
@@ -83,6 +98,8 @@ export default class Newmenu extends Component {
       mycart.splice(i, 1);
     }
     this.setState({ cart:mycart}) 
+    localStorage.setItem('mooveop_cart', JSON.stringify(mycart))
+    localStorage.setItem('mooveop_cart_total',this.state.cartTotal.toFixed(2))
     break;
   }
   

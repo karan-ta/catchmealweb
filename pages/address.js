@@ -46,7 +46,7 @@ export default function Address() {
   // console.log('Successfully got latitude and longitude', { lat, lng });
   router.push(
    {
-        pathname: '/restaurants/[lat]/[lng]',
+   pathname: '/restaurants/[lat]/[lng]',
    query: {
      lat:lat,
      lng:lng

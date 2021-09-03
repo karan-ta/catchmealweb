@@ -27,12 +27,15 @@ INSERT INTO chefmenu (chefid,itemphotoname,itemname,itemdesc,isveg,itemprice)
 VALUES (4, '/images/menuitem.jpg', 'maggi','great noodles',true,25.0);
 
 todo
+shopwise cart display 
+remove cart function as menu remove doesnt work on refresh
+on clicking pay now - we have to press back twice to go to menu , overlay of razorpay is probably stored in browser history
 restaurant integration with responsive ui - done 
-refresh react issue
-deployment
+refresh react issue - done
+deployment -done
 payment - https://developers.googleblog.com/2020/06/simpler-google-pay-integration-for-react-web-developers.html
 notification for restaurant
-delivery address.
+delivery address - done 
 like feature
 center chef bio container on phone
 do port forwarding on both the ports when testing from mobile
@@ -81,12 +84,13 @@ test on phone - done
 store cart in database.- done
 refresh issue - done
 deploy - done
-persist shop wise cart across refresh - 8 hours 
+persist shop wise cart across refresh - 8 hours /1 hour done 
 delivery address after payment complete - take building name from initial selection - 8 hours
 restrict non yogi nagar people. - 1 hour
 buy domain name and integrate - 2 hours
-persist shop wise cart across refresh - 8 hours 
+display cart shop wise - 4 hours
 talk to icici integration. - 4 hours
+combine restaurant page , delivery address page css
 remove cart button - 1 hour
 add category of courier , shopping - 8 hours
 orders list for shippers to assign manually. - 16 hours

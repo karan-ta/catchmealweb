@@ -1,7 +1,8 @@
 import { Component } from 'react'
 import eventBus from "./EventBus";
+import { withRouter } from 'next/router'
 //eventbus is not used but kept here to easily copy from later
-export default class Cart extends Component {
+export default withRouter (class Cart extends Component {
     constructor(props) {
       console.log ("props in cart")
       console.log (typeof(props.cart))
@@ -41,7 +42,21 @@ export default class Cart extends Component {
 }).then(res => res.json())
   .then(res => console.log(res));
       }
-
+      showDeliveryAddressPage = (e) => {
+           this.props.router.push(
+        {
+        pathname: '/deliveryaddress',
+        query: {
+          cart:JSON.stringify(this.props.cart),
+          chefId:JSON.stringify(this.props.chefid),
+          cartTotal:JSON.stringify(this.props.cartTotal)
+        }
+        //send menu above
+      },
+      '/deliveryaddress',
+      )
+    
+      }
        displayRazorpay = async (e) => {
        const cartToBeSaved = this.props.cart
        const mychefid = this.props.chefid
@@ -222,9 +237,10 @@ export default class Cart extends Component {
             <div className="orderNowButtonContainer">
             <button 
             className="orderNowButton"
-            onClick={this.displayRazorpay}
+            // onClick={this.displayRazorpay}
+            onClick={this.showDeliveryAddressPage}
             >
-              Order Now
+              Enter Delivery Address
             </button>
             </div>
          <style jsx global>{`
@@ -276,4 +292,4 @@ export default class Cart extends Component {
 `}</style>
         </div>
         )}
-}
+})
