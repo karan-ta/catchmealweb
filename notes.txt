@@ -78,7 +78,7 @@ CREATE TABLE orders (
 
 Alter table orders ALTER COLUMN timestamp TYPE bigint;
 
-
+quantity of menuitem should be synced with quantity of cart 
 review menuitem , cart -> removecart - done
 test on phone - done 
 store cart in database.- done

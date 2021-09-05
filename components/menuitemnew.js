@@ -6,10 +6,18 @@ import styles from '../stylesheets/menuitemnew.module.css'
 export default class MenuItemNew extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-          count:0
-        };
+       
      this.props = props;
+     console.log ("menu props")
+     console.log (this.props)
+     this.state = {
+
+        count:this.props.itemIdToQuantity
+      }
+     
+      }
+      componentDidMount(){
+        // this.setState({count:this.props.itemIdToQuantity})
       }
       addQty = () => {
         //   console.log("call add quantity")
@@ -18,7 +26,7 @@ export default class MenuItemNew extends Component {
         this.setState({count:count})
         // eventBus.dispatch("addCart", { itemname:this.props.itemname,itemprice:this.props.itemprice });
         // eventBus.dispatch("addCartPhone", {itemprice:this.props.itemprice });
-        this.props.onaddclick ({ itemname:this.props.itemname,itemprice:this.props.itemprice })
+        this.props.onaddclick ({chefName:this.props.chefName,itemid:this.props.itemid,itemname:this.props.itemname,itemprice:this.props.itemprice })
     }
     minusQty = () => {
         let count = this.state.count;
@@ -29,7 +37,7 @@ export default class MenuItemNew extends Component {
         this.setState({count:count})
         // eventBus.dispatch("removeCart", { itemname:this.props.itemname,itemprice:this.props.itemprice });
         // eventBus.dispatch("removeCartPhone", {itemprice:this.props.itemprice });
-        this.props.onminusclick ({ itemname:this.props.itemname,itemprice:this.props.itemprice })
+        this.props.onminusclick ({ chefName:this.props.chefName,itemid:this.props.itemid,itemname:this.props.itemname,itemprice:this.props.itemprice })
     }
     render(){ 
         return( 
@@ -58,7 +66,7 @@ export default class MenuItemNew extends Component {
     <button onClick={this.minusQty} className={styles.cartButton}> - </button>
 </div>
     <div className={styles.itemQuantityContainer}>
-    {this.state.count}
+    {this.props.itemIdToQuantity}
     </div>
     <div className={styles.cartButtonContainer}>
     <button onClick={this.addQty} className={styles.cartPlusButton}> + </button>

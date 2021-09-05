@@ -221,16 +221,20 @@ export default withRouter (class Cart extends Component {
           return ( 
            
         <div>
-        {this.props.cart.map((cartItem, index) => {
-            return (
-                <div className="lineItemContainer">
-        <div className="cartitemqty">{cartItem.itemqty}</div>
-        <div className="cartitemcross">x</div>            
-        <div className="cartitemname">{cartItem.itemname}</div>
-        <div className="cartitemprice">{cartItem.itemprice}</div>
-        <br/>
-        </div> 
-        )})}
+        {
+      Object.keys(this.props.cart) && Object.keys(this.props.cart).map(shopName => {
+        return (
+          <div>
+            <div>{shopName}</div>
+            {
+              this.props.cart[shopName].map(cartItem => {
+                return(<div>{cartItem.itemname}</div>)
+              })
+            }
+          </div>
+        )
+      })
+    }
         <div className="cartTotalLabel">Total: </div>
             <div className="cartTotalValue">{this.props.cartTotal}</div>
            <div className="clearspacer"></div>
