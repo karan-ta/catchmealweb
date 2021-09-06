@@ -18,17 +18,18 @@ export default withRouter(class ViewCartButtonPhone extends Component {
         console.log("in view cart showcart func")
      console.log(this.props.cart)
         e.preventDefault()
+        //do below by local storage
         this.props.router.push(
           {
           pathname: '/cartpage',
-          query: {
-            cart:JSON.stringify(this.props.cart),
-            cartTotal:this.props.cartTotal,
-            chefid:this.props.chefid,
-          }
+          // query: {
+          //   cart:JSON.stringify(this.props.cart),
+          //   cartTotal:this.props.cartTotal,
+          //   chefid:this.props.chefid,
+          // }
           //send menu above
-        },
-        '/cartpage',
+        }
+        // '/cartpage',
         )
       }
       updateCart(data,mode){

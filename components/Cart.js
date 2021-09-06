@@ -10,6 +10,9 @@ export default withRouter (class Cart extends Component {
       //if from buttonphone then json.parse 
         super(props)
      this.props = props;
+     this.state = {
+       cartItemsToBeRemoved:[]
+     }
       }
 
       loadScript(src) {
@@ -142,7 +145,6 @@ export default withRouter (class Cart extends Component {
                 }
               )
         }
-      
       //called when cart is empty and when new line item is added to cart.
        addItemToCart(data){
         let mycart = this.state.cart;
@@ -153,7 +155,25 @@ export default withRouter (class Cart extends Component {
           mycart.push(cartItem); 
           this.setState({ cart:mycart}) 
       }
-
+      removeSelected =()=>{
+        this.props.onRemoveClick ({itemIds:this.state.cartItemsToBeRemoved})
+        
+      }
+      selectCartItem(cartItem) {
+        // const newColor = this.state.isCartItemSelectedColor == '#fff' ? '#eff' : '#fff';
+        // this.setState({ isCartItemSelectedColor: newColor });
+        console.log (document.getElementById (cartItem.itemid).style.backgroundColor == "red")
+        if (document.getElementById (cartItem.itemid).style.backgroundColor == "red")
+        document.getElementById (cartItem.itemid).style.backgroundColor = "white"
+        else
+        document.getElementById (cartItem.itemid).style.backgroundColor = "red"
+        // document.getElementById (cartItem.itemid).style.backgroundColor  == 'red' ? 'white':'red'; - not working
+        if (this.state.cartItemsToBeRemoved.includes (cartItem.itemid))
+       this.state.cartItemsToBeRemoved.splice (this.state.cartItemsToBeRemoved.indexOf(cartItem.itemid),1)
+        else
+        this.state.cartItemsToBeRemoved.push (cartItem.itemid)
+        console.log (this.state.cartItemsToBeRemoved)
+      }
       componentDidMount() {
         eventBus.on("addCart", (data) =>{
          let mycart = this.state.cart;
@@ -225,10 +245,20 @@ export default withRouter (class Cart extends Component {
       Object.keys(this.props.cart) && Object.keys(this.props.cart).map(shopName => {
         return (
           <div>
-            <div>{shopName}</div>
+            <div className="shopNameContainer">{shopName}</div>
             {
               this.props.cart[shopName].map(cartItem => {
-                return(<div>{cartItem.itemname}</div>)
+                return(
+                  <div id = {cartItem.itemid} onClick={() => this.selectCartItem(cartItem)} className="lineItemContainer">
+                  <div className="cartitemqty">{cartItem.itemqty}</div>
+                  <div className="cartitemcross">x</div>            
+                  <div className="cartitemname">{cartItem.itemname}</div>
+                  <div className="cartitemprice">{cartItem.itemprice}</div>
+                  <br/>
+                  </div> 
+               
+                
+                )
               })
             }
           </div>
@@ -246,8 +276,22 @@ export default withRouter (class Cart extends Component {
             >
               Enter Delivery Address
             </button>
+            <button 
+            className="orderNowButton"
+            // onClick={this.displayRazorpay}
+            onClick={this.removeSelected}
+            >
+              Remove Items
+            </button>
             </div>
          <style jsx global>{`
+         .shopNameContainer{
+           margin-top:10px;
+           font-weight:bold;
+           font-size:14px;
+           background-color:#eef;
+           padding:3px;
+         }
          .lineItemContainer{
            border-bottom:1px solid #aaa;
            padding:10px;

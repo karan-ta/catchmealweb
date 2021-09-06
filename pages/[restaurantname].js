@@ -15,7 +15,7 @@ export default class Newmenu extends Component {
     this.menuDataRcvd = this.props.data.menuList
     this.iconStyles = {color: "red", fontSize: "1.2em" }
     this.state = {
-    cart:{},
+    cart:new Object (),
     itemIdToQuantity:{},
     cartTotal:0,
     cartQuantity:0 // for phone => total cart items in cart.
@@ -23,27 +23,40 @@ export default class Newmenu extends Component {
  
   }
   componentDidMount(){
-    const mycart = localStorage.getItem('mooveop_cart')
-    ? JSON.parse(localStorage.getItem('mooveop_cart'))
-    : []
+    if (!localStorage.getItem('mooveop_cart'))
+    {
+      console.log ("no cart found in local storage on refresh.")
+      return
+    }
+    const mycart = JSON.parse(localStorage.getItem('mooveop_cart'))
+   
+    console.log ("cart from refresh")
+    console.log (mycart)
     const mycarttotal = localStorage.getItem('mooveop_cart_total')
     ? Number (localStorage.getItem('mooveop_cart_total'))
     : 0
     const itemIdToQuantity = {}
-    if (mycart[this.props.data.chefName] && mycart[this.props.data.chefName].length > 0)
+    if (this.props.data.chefname in mycart)
     {
-      mycart[data.chefName].map((cartitem, index) => {
+      mycart[this.props.data.chefname ].map((cartitem, index) => {
         itemIdToQuantity[cartitem.itemid] = cartitem.itemqty
       })
+      console.log ("itemidtoqty")
+      console.log (itemIdToQuantity)
     }
-    console.log ("itemidtoqty")
+ 
     console.log (mycart)
-    console.log (itemIdToQuantity["4_7"])
-    this.setState({ cart:mycart,itemIdToQuantity:itemIdToQuantity}) 
+    this.setState({ cart:mycart,cartTotal:mycarttotal,itemIdToQuantity:itemIdToQuantity}) 
   }
   //below is called first time
   addItemToCart(data){
     let mycart = this.state.cart
+    let itemIdToQuantity = this.state.itemIdToQuantity
+    let cartTotal = this.state.cartTotal
+    let cartQuantity = this.state.cartQuantity
+    cartTotal +=   Number(data.itemprice)
+    cartQuantity += 1
+    console.log (mycart)
     let cartItem = new Object()
       cartItem.itemqty = 1
       cartItem.itemname = data.itemname
@@ -52,34 +65,53 @@ export default class Newmenu extends Component {
       if (!(data.chefName in mycart))
       mycart[data.chefName] = []
       mycart[data.chefName].push(cartItem)
-      this.setState({ cart:mycart}) 
+      if (!(data.itemid in itemIdToQuantity))
+      itemIdToQuantity[data.itemid] = 1
+      else
+      itemIdToQuantity[data.itemid] += 1
+      this.setState({ cart:mycart})
+      this.setState({ itemIdToQuantity:itemIdToQuantity}) 
+      this.setState({ cartTotal:cartTotal}) 
+      this.setState({ cartQuantity:cartQuantity}) 
+      console.log (mycart)
       localStorage.setItem('mooveop_cart', JSON.stringify(mycart))
-      localStorage.setItem('mooveop_cart_total',cartItem.itemprice.toFixed(2))
+      console.log ("adding cart tolocal storage")
+      console.log (localStorage.getItem('mooveop_cart'))
+      localStorage.setItem('mooveop_cart_total',cartTotal.toFixed(2))
       localStorage.setItem('chefId',this.props.data.id)
   }
   getItemQuantity = (itemId)=>{
   return this.state.itemIdToQuantity[itemId]
   }
   addCartEvent = (data)=>{
-    let mycart = this.state.cart
-    this.state.cartTotal +=   Number(data.itemprice)
-    this.state.cartQuantity += 1
-    if (!(data.chefName in mycart)){
+    
+    if (!(data.chefName in this.state.cart)){
      console.log ("adding item to cart first time only once");
      this.addItemToCart (data);
     }
    else
     { 
+      let mycart = this.state.cart
+      let itemIdToQuantity = this.state.itemIdToQuantity
+      let cartTotal = this.state.cartTotal
+      let cartQuantity = this.state.cartQuantity
+      cartTotal +=   Number(data.itemprice)
+      cartQuantity += 1
       let nameMatchFound = false;
     for (let i in mycart[data.chefName]) {
+
      if (mycart[data.chefName][i].itemid === data.itemid)
      {
        nameMatchFound = true;
        mycart[data.chefName][i].itemqty += 1
        mycart[data.chefName][i].itemprice = mycart[data.chefName][i].itemqty * Number (data.itemprice)
+       itemIdToQuantity[data.itemid] += 1
        this.setState({ cart:mycart})
+       this.setState({ itemIdToQuantity:itemIdToQuantity}) 
+       this.setState({ cartTotal:cartTotal}) 
+       this.setState({ cartQuantity:cartQuantity}) 
        localStorage.setItem('mooveop_cart', JSON.stringify(mycart))
-       localStorage.setItem('mooveop_cart_total',this.state.cartTotal.toFixed(2))
+       localStorage.setItem('mooveop_cart_total',cartTotal.toFixed(2))
        break;
      }
      
@@ -99,37 +131,96 @@ export default class Newmenu extends Component {
       })
     })
   }
+  removeCartItems = (data) =>{
+    let mycart = this.state.cart
+    let itemIdToQuantity = this.state.itemIdToQuantity
+    let cartTotal = this.state.cartTotal
+    let cartQuantity = this.state.cartQuantity
+    console.log ("cart is now ")
+    console.log (mycart)
+    for (const [shopName,cartItemArray] of Object.entries (mycart)){
+    console.log (shopName)
+      console.log (cartItemArray)
+      for(var i = 0; i < cartItemArray.length; i++){
+        console.log ("index")
+        console.log (i) 
+        console.log (cartItemArray)
+        console.log (data.itemIds)
+        console.log (cartItemArray[i].itemid)
+        console.log (data.itemIds.includes (cartItemArray[i].itemid))
+        if ((data.itemIds.includes (cartItemArray[i].itemid)))
+        {
+          console.log ("matched")
+          console.log (cartItemArray[i].itemid)
+          cartTotal -= cartItemArray[i].itemprice
+          cartQuantity -= cartItemArray[i].itemqty
+          delete itemIdToQuantity[cartItemArray[i].itemid];
+          cartItemArray.splice (i,1)
+          console.log ("shop cart length")
+          console.log (cartItemArray.length)
+          if (cartItemArray.length == 0){
+            delete mycart[shopName]
+            console.log ("yes")
+            console.log (mycart)
+            console.log (shopName)
+          }
+          
+          i = i - 1
+        }
+      }
+        }
+    localStorage.setItem('mooveop_cart', JSON.stringify(mycart))
+    localStorage.setItem('mooveop_cart_total',cartTotal.toFixed(2))
+    this.setState({ cart:mycart})
+    this.setState({ itemIdToQuantity:itemIdToQuantity}) 
+    this.setState({ cartTotal:cartTotal}) 
+    this.setState({ cartQuantity:cartQuantity}) 
+  }
+
    removeCartEvent = (data) => {
-    let mycart = this.state.cart;
-    if (mycart[data.chefName].length == 0)
-    {
-       // do nothing - request should not come here
+    let mycart = this.state.cart
+    let itemIdToQuantity = this.state.itemIdToQuantity
+    let cartTotal = this.state.cartTotal
+    let cartQuantity = this.state.cartQuantity
+    if (!(data.chefName in this.state.cart) || !(data.itemid in this.state.itemIdToQuantity)){
+     console.log ("item not in cart")
+      return
     }
   
-    if (mycart[data.chefName].length > 0){
       
   for (let i in mycart[data.chefName]) {
-  console.log (data.itemid)
-  console.log (mycart[data.chefName][i].itemid)
   if (mycart[data.chefName][i].itemid === data.itemid)
   {
-    this.state.cartQuantity -= 1.00
-    this.state.cartTotal -= Number(data.itemprice);
+    cartQuantity -= 1.00
+    cartTotal -= mycart[data.chefName][i].itemprice
     mycart[data.chefName][i].itemqty -= 1.00; 
-    mycart[data.chefName][i].itemprice = mycart[data.chefName][i].itemqty * Number(data.itemprice)
+    mycart[data.chefName][i].itemprice = mycart[data.chefName][i].itemqty * mycart[data.chefName][i].itemprice
     if (mycart[data.chefName][i].itemqty == 0.00)
     {
       mycart[data.chefName].splice(i, 1);
+      if (mycart[data.chefName].length == 0)
+      delete mycart[data.chefName]
     }
-    this.setState({ cart:mycart}) 
+    
+    
+    itemIdToQuantity[data.itemid] -= 1
+   
+    if (itemIdToQuantity[data.itemid] == 0)
+    {
+      delete itemIdToQuantity[data.itemid];
+    }
+    this.setState({ cart:mycart})
+    this.setState({ itemIdToQuantity:itemIdToQuantity}) 
+    this.setState({ cartTotal:cartTotal}) 
+    this.setState({ cartQuantity:cartQuantity}) 
     localStorage.setItem('mooveop_cart', JSON.stringify(mycart))
-    localStorage.setItem('mooveop_cart_total',this.state.cartTotal.toFixed(2))
+    localStorage.setItem('mooveop_cart_total',cartTotal.toFixed(2))
     break;
   }
   
 }//end for
     
-  }
+  
    }
 render(){     
 return(
@@ -173,8 +264,8 @@ return(
      <MenuItemNew 
      menuitemimage={menuItem.itemphotoname}
      chefName={this.props.data.chefname}
-     itemid={this.props.data.id+"_"+menuItem.itemid} //shopid_itemid => unique itemid
-     itemIdToQuantity={this.state.itemIdToQuantity[this.props.data.id+"_"+menuItem.itemid]}
+     itemId={this.props.data.id+"_"+menuItem.itemid} //shopid_itemid => unique itemid
+     itemIdToQuantity={this.state.itemIdToQuantity[this.props.data.id+"_"+menuItem.itemid]?this.state.itemIdToQuantity[this.props.data.id+"_"+menuItem.itemid]:0}
      itemname={menuItem.itemname}
      itemdesc={menuItem.itemdesc}
      itemprice={menuItem.itemprice}
@@ -195,6 +286,8 @@ return(
 cart={this.state.cart}
 cartTotal={this.state.cartTotal}
 chefid={this.props.data.id}
+chefName={this.props.data.chefname}
+onRemoveClick = {this.removeCartItems}
 />
 </div>
     </div>
@@ -203,6 +296,7 @@ cartTotal={this.state.cartTotal}
 cartQuantity={this.state.cartQuantity}
 cart={this.state.cart}
 chefid={this.props.data.id}
+chefName={this.props.data.chefname}
 />
     </div>
 )}

@@ -21,23 +21,23 @@ export default class MenuItemNew extends Component {
       }
       addQty = () => {
         //   console.log("call add quantity")
-        let count = this.state.count;
-        count++;
-        this.setState({count:count})
+        // let count = this.state.count;
+        // count++;
+        // this.setState({count:count})
         // eventBus.dispatch("addCart", { itemname:this.props.itemname,itemprice:this.props.itemprice });
         // eventBus.dispatch("addCartPhone", {itemprice:this.props.itemprice });
-        this.props.onaddclick ({chefName:this.props.chefName,itemid:this.props.itemid,itemname:this.props.itemname,itemprice:this.props.itemprice })
+        this.props.onaddclick ({chefName:this.props.chefName,itemid:this.props.itemId,itemname:this.props.itemname,itemprice:this.props.itemprice })
     }
     minusQty = () => {
-        let count = this.state.count;
-        if (count == 0)//validation => do nothing
-        return;
-        count--;
+        // let count = this.state.count;
+        // if (count == 0)//validation => do nothing
+        // return;
+        // count--;
        
-        this.setState({count:count})
+        // this.setState({count:count})
         // eventBus.dispatch("removeCart", { itemname:this.props.itemname,itemprice:this.props.itemprice });
         // eventBus.dispatch("removeCartPhone", {itemprice:this.props.itemprice });
-        this.props.onminusclick ({ chefName:this.props.chefName,itemid:this.props.itemid,itemname:this.props.itemname,itemprice:this.props.itemprice })
+        this.props.onminusclick ({ chefName:this.props.chefName,itemid:this.props.itemId,itemname:this.props.itemname,itemprice:this.props.itemprice })
     }
     render(){ 
         return( 
