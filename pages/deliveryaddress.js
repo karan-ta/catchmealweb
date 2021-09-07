@@ -19,8 +19,18 @@ function DeliveryAddress({ data }) {
         })
     }
 
-    async function displayRazorpay(e) {
-        const cartToBeSaved = localStorage.getItem('mooveop_cart')?JSON.parse (localStorage.getItem('mooveop_cart')):[]
+    async function displayRazorpay(e,data) {
+        const frontendCart = localStorage.getItem('mooveop_cart')?JSON.parse (localStorage.getItem('mooveop_cart')):[]
+        let cartToBeSaved = []
+       Object.keys(frontendCart).map(shopName => {
+        frontendCart[shopName].map(cartItem => {
+        let backendCartItem = new Object ()
+        backendCartItem["chefId"] = cartItem.itemid.split ("_")[0]
+        backendCartItem["itemId"]  = cartItem.itemid.split ("_")[1]
+        backendCartItem["itemQty"] = cartItem.itemqty
+        cartToBeSaved.push (backendCartItem)
+        })
+       })
         const chefId = localStorage.getItem('chefId')
         const cartTotal = localStorage.getItem('mooveop_cart_total')
          const res = await loadScript('https://checkout.razorpay.com/v1/checkout.js')
@@ -28,7 +38,7 @@ function DeliveryAddress({ data }) {
            alert('Razorpay SDK failed to load. Are you online?')
            return
              }
-             const paramString = "chefid="+chefId+"&amount="+cartTotal*100
+             const paramString = "chefid="+chefId+"&amount="+cartTotal*100+"&deliveryType="+data.deliveryAt+"&landmark="+data.landmark+"&buildingName="+data.buildingName
              fetch(process.env.api_url+"razorpaytesting",{
              mode:"cors",
              method: "POST",
@@ -114,7 +124,11 @@ function DeliveryAddress({ data }) {
         console.log (buildingName.label)
         if (!isFlatDelivery && !isGateDelivery)
         { 
-        setErrorString("Select gate or flat entrance delivery.")
+        setErrorString("Select gate or flat delivery.")
+        }
+        if (isFlatDelivery && isGateDelivery)
+        { 
+        setErrorString("Select either gate or flat delivery.")
         }
         else if (landmarkInputRef.current.value == "" && buildingName.label == undefined)
         {
@@ -123,7 +137,11 @@ function DeliveryAddress({ data }) {
         else 
         {
             setErrorString("")
-            displayRazorpay (e)
+            let deliveryFormData = {}
+            deliveryFormData["deliveryAt"] = isFlatDelivery?"flat":"gate"
+            deliveryFormData ["landmark"] = landmarkInputRef.current.value
+            deliveryFormData ["buildingName"] = buildingName.label
+            displayRazorpay (e,deliveryFormData)
         }
        
     }

@@ -73,22 +73,37 @@ CREATE TABLE orders (
   paymentid varchar (200),
   signature varchar (200),
   status varchar (200),
-	timestamp TIMESTAMP NOT NULL
+	timestamp bigint NOT NULL
+);
+CREATE TABLE deliveryaddress (
+	id serial PRIMARY KEY,
+	orderId integer NOT NULL,
+	deliveryType varchar(100),
+  landmark varchar (10000),
+  buildingName varchar (4000),
+	timestamp bigint NOT NULL
 );
 
+
 Alter table orders ALTER COLUMN timestamp TYPE bigint;
-move cartitemstoberemoved to parent for repeated remove iems click
-quantity of menuitem should be synced with quantity of cart 
-review menuitem , cart -> removecart - done
+doubts:
+how to make a global variable inside a component. 
+example cartItemsToBeRemoved 
+
+data add order
+pot puja 
+
+todos:
+-----------
+
+deployment
+add data - csv , own admin ,icecat , google product search , add max data.
+review , refactoring .
+
+typescript , start jetpack compose app 
 test on phone - done 
-store cart in database.- done
-refresh issue - done
-deploy - done
-persist shop wise cart across refresh - 8 hours /1 hour done 
-delivery address after payment complete - take building name from initial selection - 8 hours
 restrict non yogi nagar people. - 1 hour
 buy domain name and integrate - 2 hours
-display cart shop wise - 4 hours
 talk to icici integration. - 4 hours
 combine restaurant page , delivery address page css
 remove cart button - 1 hour
@@ -106,10 +121,9 @@ CREATE TABLE orderitems (
 	id serial PRIMARY KEY,
   orderid varchar (200),
 	chefid integer NOT NULL,
-	itemname varchar (500),
+  itemid integer,
   itemqty integer,
-  itemprice double precision,
-	timestamp TIMESTAMP NOT NULL
+	timestamp bigint NOT NULL
 );
 make one page for restaurants 
 make one page for menu

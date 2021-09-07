@@ -58,10 +58,9 @@ export default withRouter (class Cart extends Component {
       },
       '/deliveryaddress',
       )
-    
       }
        displayRazorpay = async (e) => {
-       const cartToBeSaved = this.props.cart
+      
        const mychefid = this.props.chefid
         const res = await this.loadScript('https://checkout.razorpay.com/v1/checkout.js')
         if (!res) {
@@ -157,12 +156,14 @@ export default withRouter (class Cart extends Component {
       }
       removeSelected =()=>{
         this.props.onRemoveClick ({itemIds:this.state.cartItemsToBeRemoved})
-        
+        this.state.cartItemsToBeRemoved = []
       }
+      
       selectCartItem(cartItem) {
         // const newColor = this.state.isCartItemSelectedColor == '#fff' ? '#eff' : '#fff';
         // this.setState({ isCartItemSelectedColor: newColor });
-        console.log (document.getElementById (cartItem.itemid).style.backgroundColor == "red")
+        console.log ("click on line item container called for :")
+        console.log (cartItem.itemid)
         if (document.getElementById (cartItem.itemid).style.backgroundColor == "red")
         document.getElementById (cartItem.itemid).style.backgroundColor = "white"
         else
@@ -249,7 +250,7 @@ export default withRouter (class Cart extends Component {
             {
               this.props.cart[shopName].map(cartItem => {
                 return(
-                  <div id = {cartItem.itemid} onClick={() => this.selectCartItem(cartItem)} className="lineItemContainer">
+                  <div key = {cartItem.itemid} id = {cartItem.itemid} onClick={() => this.selectCartItem(cartItem)} className="lineItemContainer">
                   <div className="cartitemqty">{cartItem.itemqty}</div>
                   <div className="cartitemcross">x</div>            
                   <div className="cartitemname">{cartItem.itemname}</div>

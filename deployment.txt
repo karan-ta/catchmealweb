@@ -1,0 +1,11 @@
+Deployment
+
+1) backup your local database
+pg_dump -Fc --no-acl --no-owner --format=plain -h localhost -U postgres catchmymeal > catchmymeal.dump
+
+2) upload the backed up database above to heroku :
+heroku pg:psql -a mooveop < catchmymeal.dump
+
+3)commit code to engine-main branch and then  git push heroku engine-main:main
+
+4)push frontend code , login to vercel and click Deploy
