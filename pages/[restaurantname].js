@@ -35,6 +35,9 @@ export default class Newmenu extends Component {
     const mycarttotal = localStorage.getItem('mooveop_cart_total')
     ? Number (localStorage.getItem('mooveop_cart_total'))
     : 0
+    const myCartQuantity = localStorage.getItem('mooveop_cart_quantity')
+    ? Number (localStorage.getItem('mooveop_cart_quantity'))
+    : 0
     const itemIdToQuantity = {}
     if (this.props.data.chefname in mycart)
     {
@@ -46,7 +49,7 @@ export default class Newmenu extends Component {
     }
  
     console.log (mycart)
-    this.setState({ cart:mycart,cartTotal:mycarttotal,itemIdToQuantity:itemIdToQuantity}) 
+    this.setState({ cart:mycart,cartTotal:mycarttotal,itemIdToQuantity:itemIdToQuantity,cartQuantity:myCartQuantity}) 
   }
   //below is called first time
   addItemToCart(data){
@@ -74,11 +77,11 @@ export default class Newmenu extends Component {
       this.setState({ cartTotal:cartTotal}) 
       this.setState({ cartQuantity:cartQuantity}) 
       console.log (mycart)
-      localStorage.setItem('mooveop_cart', JSON.stringify(mycart))
       console.log ("adding cart tolocal storage")
       console.log (localStorage.getItem('mooveop_cart'))
       localStorage.setItem('mooveop_cart_total',cartTotal.toFixed(2))
-      localStorage.setItem('chefId',this.props.data.id)
+      localStorage.setItem('mooveop_cart', JSON.stringify(mycart))
+      localStorage.setItem('mooveop_cart_quantity',cartQuantity.toString())
   }
   getItemQuantity = (itemId)=>{
   return this.state.itemIdToQuantity[itemId]
@@ -112,6 +115,7 @@ export default class Newmenu extends Component {
        this.setState({ cartQuantity:cartQuantity}) 
        localStorage.setItem('mooveop_cart', JSON.stringify(mycart))
        localStorage.setItem('mooveop_cart_total',cartTotal.toFixed(2))
+       localStorage.setItem('mooveop_cart_quantity',cartQuantity.toString ())
        break;
      }
      
@@ -147,7 +151,7 @@ export default class Newmenu extends Component {
         console.log (cartItemArray)
         console.log (data.itemIds)
         console.log (cartItemArray[i].itemid)
-        console.log (data.itemIds.includes (cartItemArray[i].itemid))
+        console.log (data.itemIds.includes (cartItemArray[i].itemid)  )
         if ((data.itemIds.includes (cartItemArray[i].itemid)))
         {
           console.log ("matched")
@@ -164,13 +168,13 @@ export default class Newmenu extends Component {
             console.log (mycart)
             console.log (shopName)
           }
-          
           i = i - 1
         }
       }
         }
     localStorage.setItem('mooveop_cart', JSON.stringify(mycart))
     localStorage.setItem('mooveop_cart_total',cartTotal.toFixed(2))
+    localStorage.setItem('mooveop_cart_quantity',cartQuantity.toString ())
     this.setState({ cart:mycart})
     this.setState({ itemIdToQuantity:itemIdToQuantity}) 
     this.setState({ cartTotal:cartTotal}) 
@@ -215,6 +219,7 @@ export default class Newmenu extends Component {
     this.setState({ cartQuantity:cartQuantity}) 
     localStorage.setItem('mooveop_cart', JSON.stringify(mycart))
     localStorage.setItem('mooveop_cart_total',cartTotal.toFixed(2))
+    localStorage.setItem('mooveop_cart_quantity',cartQuantity)
     break;
   }
   
@@ -285,8 +290,6 @@ return(
 <Cart
 cart={this.state.cart}
 cartTotal={this.state.cartTotal}
-chefid={this.props.data.id}
-chefName={this.props.data.chefname}
 onRemoveClick = {this.removeCartItems}
 />
 </div>
@@ -294,9 +297,6 @@ onRemoveClick = {this.removeCartItems}
 <ViewCartButtonPhone
 cartTotal={this.state.cartTotal}
 cartQuantity={this.state.cartQuantity}
-cart={this.state.cart}
-chefid={this.props.data.id}
-chefName={this.props.data.chefname}
 />
     </div>
 )}

@@ -49,14 +49,7 @@ export default withRouter (class Cart extends Component {
            this.props.router.push(
         {
         pathname: '/deliveryaddress',
-        query: {
-          cart:JSON.stringify(this.props.cart),
-          chefId:JSON.stringify(this.props.chefid),
-          cartTotal:JSON.stringify(this.props.cartTotal)
         }
-        //send menu above
-      },
-      '/deliveryaddress',
       )
       }
        displayRazorpay = async (e) => {

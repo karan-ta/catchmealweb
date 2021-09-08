@@ -1,8 +1,4 @@
-import Cart from '../components/Cart.js'
-import { Component } from 'react'
-import styles from '../stylesheets/cart.module.css'
-export default class CartPage extends Component{
-    
+export default class CartState extends Component {
     constructor(props)
     {
       super(props)
@@ -12,8 +8,8 @@ export default class CartPage extends Component{
       cartTotal:0,
       cartQuantity:0 // for phone => total cart items in cart.
       };
+   
     }
-
     removeCartItems = (data) =>{
         let mycart = this.state.cart
         let itemIdToQuantity = this.state.itemIdToQuantity
@@ -54,7 +50,6 @@ export default class CartPage extends Component{
             }
         localStorage.setItem('mooveop_cart', JSON.stringify(mycart))
         localStorage.setItem('mooveop_cart_total',cartTotal.toFixed(2))
-        localStorage.setItem('mooveop_cart_quantity',cartQuantity.toString ())
         this.setState({ cart:mycart})
         this.setState({ itemIdToQuantity:itemIdToQuantity}) 
         this.setState({ cartTotal:cartTotal}) 
@@ -73,37 +68,18 @@ export default class CartPage extends Component{
         const mycarttotal = localStorage.getItem('mooveop_cart_total')
         ? Number (localStorage.getItem('mooveop_cart_total'))
         : 0
-        const myCartQuantity = localStorage.getItem('mooveop_cart_quantity')
-        ? Number (localStorage.getItem('mooveop_cart_quantity'))
-        : 0
         const itemIdToQuantity = {}
-        if (Object.keys (mycart).length > 0)
+        if (this.props.data.chefname in mycart)
         {
-            Object.keys(mycart).map(shopName => {
-                mycart[shopName].map(cartItem => {
-            itemIdToQuantity[cartItem.itemid] = cartItem.itemqty
-                })
+          mycart[this.props.data.chefname ].map((cartitem, index) => {
+            itemIdToQuantity[cartitem.itemid] = cartitem.itemqty
           })
           console.log ("itemidtoqty")
           console.log (itemIdToQuantity)
         }
      
         console.log (mycart)
-        this.setState({ cart:mycart,cartTotal:mycarttotal,itemIdToQuantity:itemIdToQuantity,cartQuantity:myCartQuantity}) 
+        this.setState({ cart:mycart,cartTotal:mycarttotal,itemIdToQuantity:itemIdToQuantity}) 
       }
-    render(){    
-    return (
-        <div className={styles.cartpagecontainer}>
-            <h1>
-                Your Order
-            </h1>
-            
-            <Cart
-cart={this.state.cart}
-cartTotal={this.state.cartTotal}
-onRemoveClick = {this.removeCartItems}
-/>
-        </div>
-
-    )}
-    }
+      
+}

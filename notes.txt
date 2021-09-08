@@ -67,7 +67,6 @@ c32f15bfedaca1c90997fbe164414cb742943595957e57172c515024d38f1dd4
 
 CREATE TABLE orders (
 	id serial PRIMARY KEY,
-	chefid integer NOT NULL,
 	amount double precision NOT NULL,
 	orderid varchar (200),
   paymentid varchar (200),
@@ -95,8 +94,8 @@ pot puja
 
 todos:
 -----------
-
-deployment
+test on phone 
+razorpay popup breaks back button functionality 
 add data - csv , own admin ,icecat , google product search , add max data.
 review , refactoring .
 

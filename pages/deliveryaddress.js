@@ -3,7 +3,6 @@ import styles from '../stylesheets/deliveryaddress.module.css'
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete' ;
 import {useRef,useState,useEffect } from 'react';
 
-
 function DeliveryAddress({ data }) {
     function loadScript(src) {
         return new Promise((resolve) => {
@@ -38,7 +37,7 @@ function DeliveryAddress({ data }) {
            alert('Razorpay SDK failed to load. Are you online?')
            return
              }
-             const paramString = "chefid="+chefId+"&amount="+cartTotal*100+"&deliveryType="+data.deliveryAt+"&landmark="+data.landmark+"&buildingName="+data.buildingName
+             const paramString = "&amount="+cartTotal*100+"&deliveryType="+data.deliveryAt+"&landmark="+data.landmark+"&buildingName="+data.buildingName+"&flatNumber="+data.flatNumber
              fetch(process.env.api_url+"razorpaytesting",{
              mode:"cors",
              method: "POST",
@@ -71,7 +70,7 @@ function DeliveryAddress({ data }) {
                              headers: new Headers({
                                'Content-Type': 'application/json'
                         }),
-                        body: JSON.stringify({"chefId":chefId,"orderId":response.razorpay_order_id,"paymentId":response.razorpay_payment_id,"secret":"CxddGtImY1enXfYnoQjDUumU","signature":response.razorpay_signature,"cartItems":cartToBeSaved})
+                        body: JSON.stringify({"orderId":response.razorpay_order_id,"paymentId":response.razorpay_payment_id,"secret":"CxddGtImY1enXfYnoQjDUumU","signature":response.razorpay_signature,"cartItems":cartToBeSaved})
                            })
                            .then(res => res.json())
                            .then(
@@ -118,34 +117,49 @@ function DeliveryAddress({ data }) {
     function validateDeliveryAddressForm (e){
         e.preventDefault ()
         console.log ("validating...")
-        console.log (isFlatDelivery)
-        console.log (isGateDelivery)
-        console.log (landmarkInputRef.current.value)
-        console.log (buildingName.label)
+        console.log (document.getElementsByName("flatNumber").value)
+        console.log (flatNumberRef.current.value)
+        console.log (landmarkInputRef.current)
         if (!isFlatDelivery && !isGateDelivery)
         { 
         setErrorString("Select gate or flat delivery.")
         }
-        if (isFlatDelivery && isGateDelivery)
+        else if (isFlatDelivery && isGateDelivery)
         { 
         setErrorString("Select either gate or flat delivery.")
+        
         }
-        else if (landmarkInputRef.current.value == "" && buildingName.label == undefined)
+       
+        
+        else if (flatNumberRef.current.value == "")
         {
-            setErrorString("Enter landmark or building name.")
+            setErrorString("Enter Flat Number")
+            
+        }
+        else if (buildingName.label == undefined)
+        {
+            setErrorString("select building name.")
+        }
+        else if (landmarkInputRef.current.value == "" )
+        {
+            setErrorString("Enter landmark name.")
+            
         }
         else 
         {
             setErrorString("")
             let deliveryFormData = {}
             deliveryFormData["deliveryAt"] = isFlatDelivery?"flat":"gate"
-            deliveryFormData ["landmark"] = landmarkInputRef.current.value
+            deliveryFormData ["landmark"] = landmarkInputRef.current == null?"":landmarkInputRef.current.value
+            deliveryFormData ["flatNumber"] = flatNumberRef.current==null?"":flatNumberRef.current.value
             deliveryFormData ["buildingName"] = buildingName.label
+           console.log (deliveryFormData)
             displayRazorpay (e,deliveryFormData)
         }
        
     }
     const landmarkInputRef = useRef("");
+    const flatNumberRef = useRef("");
     const [errorString,setErrorString] = useState("")
     const [buildingName, setBuildingName] = useState("")
     const [isFlatDelivery, setFlatDelivery] = useState(false)
@@ -175,7 +189,7 @@ Deliver At Gate Entrance
         Deliver At Flat Entrance
         </label>
         </div>
-        {isFlatDelivery == true  &&
+       
         <div>
         <div className = {styles.flatNumberLabel}>
         <label>
@@ -183,10 +197,9 @@ Deliver At Gate Entrance
         </label>
         </div>
         <div className = {styles.flatNumberElemDiv}>
-        <input className = {styles.flatNumberElement} type="text" name="flatnumber"   />
+        <input ref={flatNumberRef} className = {styles.flatNumberElement} type="text" name="flatNumber"   />
         </div>
         </div>
-        }   
        <div className = {styles.spacer}></div>
        <div className = {styles.buildingNameLabel}>
         <label>
