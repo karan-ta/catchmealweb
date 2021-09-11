@@ -249,6 +249,8 @@ export default withRouter (class Cart extends Component {
                   <div className="cartitemname">{cartItem.itemname}</div>
                   <div className="cartitemprice">{cartItem.itemprice}</div>
                   <br/>
+                  <div className="clearspacer"></div>
+                  {/* Problem happens when a floated element is within a container box and element does not automatically force the container’s height adjust to the floated element. When an element is floated, its parent no longer contains it because the float is removed from the flow. You can use 2 methods to fix it: */}
                   </div> 
                
                 
@@ -270,12 +272,16 @@ export default withRouter (class Cart extends Component {
             >
               Enter Delivery Address
             </button>
+          
+           
+            </div>
+            <div className="removeButtonContainer">
             <button 
             className="orderNowButton"
             // onClick={this.displayRazorpay}
             onClick={this.removeSelected}
             >
-              Remove Items
+              Remove clicked Items
             </button>
             </div>
          <style jsx global>{`
@@ -288,7 +294,7 @@ export default withRouter (class Cart extends Component {
          }
          .lineItemContainer{
            border-bottom:1px solid #aaa;
-           padding:10px;
+           padding:7px;
          }
          .cartTotalLabel{
            float:left;
@@ -305,6 +311,7 @@ export default withRouter (class Cart extends Component {
          }
          .cartitemname{
              float:left;
+             width:50%;
          }
          .cartitemcross{
              float:left;
@@ -318,15 +325,18 @@ export default withRouter (class Cart extends Component {
            clear:both;
          }
          .orderNowButtonContainer{
-           margin-top:30px;
-           font-size:18px;
+           margin-top:20px;
+           font-size:16px;
            text-align:center;
          }
-
+         .removeButtonContainer{
+          margin-top:10px;
+          font-size:16px;
+          text-align:center;
+         }
          .orderNowButton{
           font-size:18px;
           padding:7px;
-          width:65%;
          }  
 
        

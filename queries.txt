@@ -1,0 +1,5 @@
+\copy chefmenu FROM '/home/karan/databases/test.csv' DELIMITER ',' CSV
+
+delete from chefmenu where chefid = 5;
+
+update chefmenu set itemdesc = '' where itemdesc is null;

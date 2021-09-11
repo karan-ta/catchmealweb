@@ -48,6 +48,7 @@ export default class MenuItemNew extends Component {
       width={310} // Desired size with correct aspect ratio
       alt="Your Name"
     />  
+    <div className={styles.nameDescContainer}>
      <div className={styles.itemname}>
      {this.props.itemname}
  </div>
@@ -61,6 +62,7 @@ export default class MenuItemNew extends Component {
     </div>
     <div className={styles.itemdesc}>
     {this.props.itemdesc}
+    </div>
     </div>
    <div className={styles.cartButtonContainer}>
     <button onClick={this.minusQty} className={styles.cartButton}> - </button>

@@ -246,7 +246,7 @@ return(
 </div>
 <div className={styles.chefBioContainer}>
 <h4 className = {styles.zeropadding}>
-        Chef Wayne's Italian Cafe
+        {this.props.data.chefname}
         </h4>
         <div className = {styles.topbottom10}>
         {this.props.data.cuisinename}

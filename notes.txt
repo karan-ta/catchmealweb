@@ -79,6 +79,7 @@ CREATE TABLE deliveryaddress (
 	orderId integer NOT NULL,
 	deliveryType varchar(100),
   landmark varchar (10000),
+  flatnumber varchar (200),
   buildingName varchar (4000),
 	timestamp bigint NOT NULL
 );
@@ -94,6 +95,20 @@ pot puja
 
 todos:
 -----------
+=================================================================
+error on no select and remove in cart
+clear full cart 
+scroll view cart 
+product category , shop category , alphabetical filter 
+clear cart on order success.
+enter data 
+admin 
+pot pujaa 
+pangat 
+malgudi
+===================================================================
+
+
 test on phone 
 razorpay popup breaks back button functionality 
 add data - csv , own admin ,icecat , google product search , add max data.

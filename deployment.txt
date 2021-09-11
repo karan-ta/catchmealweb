@@ -8,4 +8,4 @@ heroku pg:psql -a mooveop < catchmymeal.dump
 
 3)commit code to engine-main branch and then  git push heroku engine-main:main
 
-4)push frontend code , login to vercel and click Deploy
+4)push frontend code 

@@ -4,6 +4,8 @@
     float:left;
     margin-right:3%;
     margin-bottom:25px;
+    min-height:320px;
+    
  
   }
   @media only screen and (max-width: 980px) {
@@ -15,6 +17,7 @@
  .itemname{
    margin:10px;
    float:left;
+   width:65%;
  }
  .itempricenumber{
    margin-top:10px;
@@ -36,8 +39,11 @@
    font-size:18px;
    color:#111;
    line-height: 1.1rem;
+   
  }
- 
+ .nameDescContainer{
+  min-height:94px;
+ }
  .cartButtonContainer{
    float:left;
    margin-left:10px;
