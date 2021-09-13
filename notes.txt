@@ -103,9 +103,7 @@ product category , shop category , alphabetical filter
 clear cart on order success.
 enter data 
 admin 
-pot pujaa 
-pangat 
-malgudi
+
 ===================================================================
 
 

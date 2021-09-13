@@ -8,11 +8,52 @@ import ViewCartButtonPhone from '../components/viewcartbuttonphone.js'
 import { Component } from 'react'
 
 export default class Newmenu extends Component {
+  groupMenuItems = (data)=>{
+    // let allMenuItemsArray = []
+    // data.map (menuItem =>{
+    // allMenuItemsArray.push (
+    //   <MenuItemNew 
+    //   menuitemimage={menuItem.itemphotoname}
+    //   chefName={this.props.data.chefname}
+    //   itemId={this.props.data.id+"_"+menuItem.itemid} //shopid_itemid => unique itemid
+    //   key = {this.props.data.id+"_"+menuItem.itemid} //shopid_itemid => unique itemid
+    //   itemIdToQuantity={itemIdToQuantity[this.props.data.id+"_"+menuItem.itemid]?itemIdToQuantity[this.props.data.id+"_"+menuItem.itemid]:0}
+    //   itemname={menuItem.itemname}
+    //   itemdesc={menuItem.itemdesc}
+    //   itemprice={menuItem.itemprice}
+    //   isveg={menuItem.isveg}
+    //   onaddclick = {this.addCartEvent}
+    //   onminusclick = {this.removeCartEvent}
+    //   getItemQuantity = {this.getItemQuantity}
+    //   />
+    // )
+   
+    // })
+    const outputGroupedArray = [] //final array of grouped components containing all 
+    let threeItemsArray = []//array of three components
+    for (let i in data)
+    {
+      if (i > 0 && i % 3 == 0)
+      {
+        outputGroupedArray.push (threeItemsArray)
+        threeItemsArray = []
+      }
+      
+      threeItemsArray.push (data[i])
+    }  
+    if (threeItemsArray.length>0)
+    outputGroupedArray.push (threeItemsArray)//add 1 or 2 left over components to final output
+    console.log ("printing menuItems Array")
+    console.log (outputGroupedArray)
+    console.log ("printed menuItems Array")
+    this.outputGroupedMenuitemsArray = outputGroupedArray
+  }
   constructor(props)
   {
     super(props)
     this.props = props;
     this.menuDataRcvd = this.props.data.menuList
+    this.outputGroupedMenuitemsArray = []
     this.iconStyles = {color: "red", fontSize: "1.2em" }
     this.state = {
     cart:new Object (),
@@ -20,11 +61,14 @@ export default class Newmenu extends Component {
     cartTotal:0,
     cartQuantity:0 // for phone => total cart items in cart.
     };
+    
  
   }
   componentDidMount(){
     if (!localStorage.getItem('mooveop_cart'))
     {
+      this.groupMenuItems (this.menuDataRcvd)
+      this.setState({cart:{},cartTotal:0,cartQuantity:0}) //render menu items after grouping menuitems of 3, itemidtoquantity = 0
       console.log ("no cart found in local storage on refresh.")
       return
     }
@@ -49,7 +93,9 @@ export default class Newmenu extends Component {
     }
  
     console.log (mycart)
-    this.setState({ cart:mycart,cartTotal:mycarttotal,itemIdToQuantity:itemIdToQuantity,cartQuantity:myCartQuantity}) 
+    this.groupMenuItems (this.menuDataRcvd)
+    this.setState({ cart:mycart,cartTotal:mycarttotal,cartQuantity:myCartQuantity,itemIdToQuantity:itemIdToQuantity}) 
+  
   }
   //below is called first time
   addItemToCart(data){
@@ -72,10 +118,7 @@ export default class Newmenu extends Component {
       itemIdToQuantity[data.itemid] = 1
       else
       itemIdToQuantity[data.itemid] += 1
-      this.setState({ cart:mycart})
-      this.setState({ itemIdToQuantity:itemIdToQuantity}) 
-      this.setState({ cartTotal:cartTotal}) 
-      this.setState({ cartQuantity:cartQuantity}) 
+      this.setState({ cart:mycart,cartTotal:cartTotal,cartQuantity:cartQuantity,itemIdToQuantity:itemIdToQuantity}) 
       console.log (mycart)
       console.log ("adding cart tolocal storage")
       console.log (localStorage.getItem('mooveop_cart'))
@@ -109,10 +152,8 @@ export default class Newmenu extends Component {
        mycart[data.chefName][i].itemqty += 1
        mycart[data.chefName][i].itemprice = mycart[data.chefName][i].itemqty * Number (data.itemprice)
        itemIdToQuantity[data.itemid] += 1
-       this.setState({ cart:mycart})
-       this.setState({ itemIdToQuantity:itemIdToQuantity}) 
-       this.setState({ cartTotal:cartTotal}) 
-       this.setState({ cartQuantity:cartQuantity}) 
+      this.setState({ cart:mycart,cartTotal:cartTotal,cartQuantity:cartQuantity,itemIdToQuantity:itemIdToQuantity}) 
+    
        localStorage.setItem('mooveop_cart', JSON.stringify(mycart))
        localStorage.setItem('mooveop_cart_total',cartTotal.toFixed(2))
        localStorage.setItem('mooveop_cart_quantity',cartQuantity.toString ())
@@ -175,10 +216,8 @@ export default class Newmenu extends Component {
     localStorage.setItem('mooveop_cart', JSON.stringify(mycart))
     localStorage.setItem('mooveop_cart_total',cartTotal.toFixed(2))
     localStorage.setItem('mooveop_cart_quantity',cartQuantity.toString ())
-    this.setState({ cart:mycart})
-    this.setState({ itemIdToQuantity:itemIdToQuantity}) 
-    this.setState({ cartTotal:cartTotal}) 
-    this.setState({ cartQuantity:cartQuantity}) 
+      this.setState({ cart:mycart,cartTotal:cartTotal,cartQuantity:cartQuantity,itemIdToQuantity:itemIdToQuantity}) 
+   
   }
 
    removeCartEvent = (data) => {
@@ -186,8 +225,8 @@ export default class Newmenu extends Component {
     let itemIdToQuantity = this.state.itemIdToQuantity
     let cartTotal = this.state.cartTotal
     let cartQuantity = this.state.cartQuantity
-    if (!(data.chefName in this.state.cart) || !(data.itemid in this.state.itemIdToQuantity)){
-     console.log ("item not in cart")
+    if (!(data.chefName in this.state.cart)){
+     console.log ("from remove cart event - item not in cart")
       return
     }
   
@@ -213,10 +252,7 @@ export default class Newmenu extends Component {
     {
       delete itemIdToQuantity[data.itemid];
     }
-    this.setState({ cart:mycart})
-    this.setState({ itemIdToQuantity:itemIdToQuantity}) 
-    this.setState({ cartTotal:cartTotal}) 
-    this.setState({ cartQuantity:cartQuantity}) 
+    this.setState({ cart:mycart,cartTotal:cartTotal,cartQuantity:cartQuantity,itemIdToQuantity:itemIdToQuantity}) 
     localStorage.setItem('mooveop_cart', JSON.stringify(mycart))
     localStorage.setItem('mooveop_cart_total',cartTotal.toFixed(2))
     localStorage.setItem('mooveop_cart_quantity',cartQuantity)
@@ -224,7 +260,6 @@ export default class Newmenu extends Component {
   }
   
 }//end for
-    
   
    }
 render(){     
@@ -232,12 +267,12 @@ return(
     <div className={styles.menuContainer}>
     <div className={styles.leftContainer}>
 <div className={styles.unsetimg}>
-  <Image  src="/images/profileheader.jpg" layout="fill" className={styles.customimg} />
+  <Image  src={this.props.data.chefprofilephoto} layout="fill" className={styles.customimg} />
 </div>
 <div className={styles.chefImageContainer}>
     <div className={styles.chefImageInnerContainer}>
 <Image className = {styles.menuchefimg}
-      src="/images/wayne.webp" // Route of the image file
+      src={this.props.data.chefphotoname} // Route of the image file
       height={120} // Desired size with correct aspect ratio
       width={120} // Desired size with correct aspect ratio
       alt="Your Name"
@@ -248,9 +283,9 @@ return(
 <h4 className = {styles.zeropadding}>
         {this.props.data.chefname}
         </h4>
-        <div className = {styles.topbottom10}>
+        {/* <div className = {styles.topbottom10}>
         {this.props.data.cuisinename}
-      </div>
+      </div> */}
       <div className={styles.hearticon}>
     <BsHeart style={this.iconStyles}/>
     </div>
@@ -265,28 +300,38 @@ return(
     
 </div>
 <div className={styles.menuItemContainer}>
-{this.menuDataRcvd.map((menuItem, index) => ( 
-     <MenuItemNew 
-     menuitemimage={menuItem.itemphotoname}
-     chefName={this.props.data.chefname}
-     itemId={this.props.data.id+"_"+menuItem.itemid} //shopid_itemid => unique itemid
-     itemIdToQuantity={this.state.itemIdToQuantity[this.props.data.id+"_"+menuItem.itemid]?this.state.itemIdToQuantity[this.props.data.id+"_"+menuItem.itemid]:0}
-     itemname={menuItem.itemname}
-     itemdesc={menuItem.itemdesc}
-     itemprice={menuItem.itemprice}
-     isveg={menuItem.isveg}
-     onaddclick = {this.addCartEvent}
-     onminusclick = {this.removeCartEvent}
-     getItemQuantity = {this.getItemQuantity}
-     />
-))}
-  
+  {this.outputGroupedMenuitemsArray.map(threeItemArray => {
+    return (<div className="threeMenuItemContainer">
+{
+  threeItemArray.map(menuItem =>{
+    return (<MenuItemNew 
+      menuitemimage={menuItem.itemphotoname}
+      chefName={this.props.data.chefname}
+      itemId={this.props.data.id+"_"+menuItem.itemid} //shopid_itemid => unique itemid
+      key = {this.props.data.id+"_"+menuItem.itemid} //shopid_itemid => unique itemid
+      itemIdToQuantity={this.state.itemIdToQuantity[this.props.data.id+"_"+menuItem.itemid]?this.state.itemIdToQuantity[this.props.data.id+"_"+menuItem.itemid]:0}
+      itemname={menuItem.itemname}
+      itemdesc={menuItem.itemdesc}
+      itemprice={menuItem.itemprice}
+      isveg={menuItem.isveg}
+      onaddclick = {this.addCartEvent}
+      onminusclick = {this.removeCartEvent}
+      getItemQuantity = {this.getItemQuantity}
+      />)
+  })
+}
+<div className="clearspacer"></div>
+  </div>
+    )
+})
+
+}
 </div>
 <br/><br/>
     </div>
     {/* left container ends */}
     <div className={styles.rightContainer}>
-      <div className={styles.clearboth}>
+      <div className={styles.clearspacer}>
 <Cart
 cart={this.state.cart}
 cartTotal={this.state.cartTotal}
@@ -306,6 +351,6 @@ export async function getServerSideProps(context) {
   console.log (context)
   const res = await fetch(process.env.api_url+context.query.restaurantname)
   const data = await res.json()
-  // console.log (data)
+  console.log (data)
   return {props: {data}}
 }

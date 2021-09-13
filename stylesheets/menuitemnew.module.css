@@ -27,10 +27,10 @@
    font-weight:bold;
  }
  .ruppeesymbol{
-   margin-top:8px;
+   margin-top:10px;
    float:right;
    font-weight:bold;
- }
+ }  
  .itemdesc{
    clear:both;
    margin:10px;
@@ -42,7 +42,7 @@
    
  }
  .nameDescContainer{
-  min-height:94px;
+  min-height:100px;
  }
  .cartButtonContainer{
    float:left;

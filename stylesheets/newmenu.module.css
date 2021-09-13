@@ -14,6 +14,7 @@ border-right:1px solid #aaa;
         place-items: center;
     }
 }
+
 .rightContainer{
 width:22%;
 float:right;
@@ -51,6 +52,7 @@ margin-top:40px;
       width:100%;
   }
 }
+
 .chefImageInnerContainer{
     width:34%;
     margin:0 auto;
@@ -102,7 +104,14 @@ margin-bottom: 40px;
     width:78%;
   }
 }
+@media only screen and (max-width: 980px) {
+  .threeMenuItemContainer{
+   width:80%;
+   display:block;
+    border:1px solid red;
+  }
+}
 
-.clearboth{
+.clearspacer{
   clear:both;
 }

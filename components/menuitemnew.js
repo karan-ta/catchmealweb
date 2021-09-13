@@ -8,12 +8,12 @@ export default class MenuItemNew extends Component {
         super(props);
        
      this.props = props;
-     console.log ("menu props")
+     console.log ("menu props- menu item constructor called")
      console.log (this.props)
-     this.state = {
+    //  this.state = {
 
-        count:this.props.itemIdToQuantity
-      }
+    //     count:this.props.itemIdToQuantity
+    //   }
      
       }
       componentDidMount(){
