@@ -28,6 +28,7 @@ export default class MenuItemNew extends Component {
         // eventBus.dispatch("addCartPhone", {itemprice:this.props.itemprice });
         this.props.onaddclick ({chefName:this.props.chefName,itemid:this.props.itemId,itemname:this.props.itemname,itemprice:this.props.itemprice })
     }
+
     minusQty = () => {
         // let count = this.state.count;
         // if (count == 0)//validation => do nothing

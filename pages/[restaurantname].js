@@ -180,6 +180,7 @@ export default class Newmenu extends Component {
     let mycart = this.state.cart
     let itemIdToQuantity = this.state.itemIdToQuantity
     let cartTotal = this.state.cartTotal
+
     let cartQuantity = this.state.cartQuantity
     console.log ("cart is now ")
     console.log (mycart)
@@ -198,6 +199,8 @@ export default class Newmenu extends Component {
           console.log ("matched")
           console.log (cartItemArray[i].itemid)
           cartTotal -= cartItemArray[i].itemprice
+         
+
           cartQuantity -= cartItemArray[i].itemqty
           delete itemIdToQuantity[cartItemArray[i].itemid];
           cartItemArray.splice (i,1)
@@ -224,6 +227,16 @@ export default class Newmenu extends Component {
     let mycart = this.state.cart
     let itemIdToQuantity = this.state.itemIdToQuantity
     let cartTotal = this.state.cartTotal
+    if (cartTotal == 0 || cartTotal < 0)
+    return
+    console.log (cartTotal)
+    console.log (Number(data.itemprice))
+    console.log (cartTotal - Number(data.itemprice))
+    if ((cartTotal - Number(data.itemprice)) < 0){
+      console.log ("Remove Cart Event - cart total cannot be negative.")
+      return
+    }
+    
     let cartQuantity = this.state.cartQuantity
     if (!(data.chefName in this.state.cart)){
      console.log ("from remove cart event - item not in cart")
@@ -235,16 +248,18 @@ export default class Newmenu extends Component {
   if (mycart[data.chefName][i].itemid === data.itemid)
   {
     cartQuantity -= 1.00
-    cartTotal -= mycart[data.chefName][i].itemprice
+    
     mycart[data.chefName][i].itemqty -= 1.00; 
-    mycart[data.chefName][i].itemprice = mycart[data.chefName][i].itemqty * mycart[data.chefName][i].itemprice
-    if (mycart[data.chefName][i].itemqty == 0.00)
+    
+    if (mycart[data.chefName][i].itemqty == 0.00) 
     {
       mycart[data.chefName].splice(i, 1);
       if (mycart[data.chefName].length == 0)
       delete mycart[data.chefName]
     }
-    
+    else{ 
+    mycart[data.chefName][i].itemprice = mycart[data.chefName][i].itemqty * mycart[data.chefName][i].itemprice
+    }
     
     itemIdToQuantity[data.itemid] -= 1
    
@@ -252,6 +267,7 @@ export default class Newmenu extends Component {
     {
       delete itemIdToQuantity[data.itemid];
     }
+    cartTotal -= Number(data.itemprice)
     this.setState({ cart:mycart,cartTotal:cartTotal,cartQuantity:cartQuantity,itemIdToQuantity:itemIdToQuantity}) 
     localStorage.setItem('mooveop_cart', JSON.stringify(mycart))
     localStorage.setItem('mooveop_cart_total',cartTotal.toFixed(2))
