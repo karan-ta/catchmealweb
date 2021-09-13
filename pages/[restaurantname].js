@@ -65,23 +65,29 @@ export default class Newmenu extends Component {
  
   }
   componentDidMount(){
-    if (!localStorage.getItem('mooveop_cart'))
-    {
-      this.groupMenuItems (this.menuDataRcvd)
-      this.setState({cart:{},cartTotal:0,cartQuantity:0}) //render menu items after grouping menuitems of 3, itemidtoquantity = 0
-      console.log ("no cart found in local storage on refresh.")
-      return
-    }
-    const mycart = JSON.parse(localStorage.getItem('mooveop_cart'))
-   
-    console.log ("cart from refresh")
-    console.log (mycart)
+    console.log ("sachin : ")
+    console.log (localStorage.getItem('mooveop_cart'))
+    console.log (localStorage.getItem('mooveop_cart_quantity'))
+    console.log (localStorage.getItem('mooveop_cart_total'))
     const mycarttotal = localStorage.getItem('mooveop_cart_total')
     ? Number (localStorage.getItem('mooveop_cart_total'))
     : 0
     const myCartQuantity = localStorage.getItem('mooveop_cart_quantity')
     ? Number (localStorage.getItem('mooveop_cart_quantity'))
     : 0
+    const mycart = localStorage.getItem('mooveop_cart')?JSON.parse(localStorage.getItem('mooveop_cart')):{}
+    if (mycart == {} || Number(localStorage.getItem('mooveop_cart_quantity')) <= 0 || localStorage.getItem('mooveop_cart_total') <= 0)
+    {
+      this.groupMenuItems (this.menuDataRcvd)
+      this.setState({cart:{},cartTotal:0,cartQuantity:0}) //render menu items after grouping menuitems of 3, itemidtoquantity = 0
+      console.log ("no cart or bad cart found in local storage on refresh.")
+      return
+    }
+    
+   
+    console.log ("cart from refresh")
+    console.log (mycart)
+    
     const itemIdToQuantity = {}
     if (this.props.data.chefname in mycart)
     {
