@@ -27,12 +27,7 @@ INSERT INTO chefmenu (chefid,itemphotoname,itemname,itemdesc,isveg,itemprice)
 VALUES (4, '/images/menuitem.jpg', 'maggi','great noodles',true,25.0);
 
 todo
-shopwise cart display 
-remove cart function as menu remove doesnt work on refresh
 on clicking pay now - we have to press back twice to go to menu , overlay of razorpay is probably stored in browser history
-restaurant integration with responsive ui - done 
-refresh react issue - done
-deployment -done
 payment - https://developers.googleblog.com/2020/06/simpler-google-pay-integration-for-react-web-developers.html
 notification for restaurant
 delivery address - done 

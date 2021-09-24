@@ -254,9 +254,7 @@ export default class Newmenu extends Component {
   if (mycart[data.chefName][i].itemid === data.itemid)
   {
     cartQuantity -= 1.00
-    
     mycart[data.chefName][i].itemqty -= 1.00; 
-    
     if (mycart[data.chefName][i].itemqty == 0.00) 
     {
       mycart[data.chefName].splice(i, 1);
@@ -264,7 +262,7 @@ export default class Newmenu extends Component {
       delete mycart[data.chefName]
     }
     else{ 
-    mycart[data.chefName][i].itemprice = mycart[data.chefName][i].itemqty * mycart[data.chefName][i].itemprice
+    mycart[data.chefName][i].itemprice = mycart[data.chefName][i].itemqty * Number(data.itemprice)
     }
     
     itemIdToQuantity[data.itemid] -= 1

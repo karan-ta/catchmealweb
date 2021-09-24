@@ -1,6 +1,3 @@
-remove isveg column - done 
-cart ui breaking for long word
-cart height scroller
 
 enerjio get photos 
 apricot wonder foods crawl 

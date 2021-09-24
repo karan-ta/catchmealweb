@@ -5,3 +5,6 @@ delete from chefmenu where chefid = 5;
 update chefmenu set itemdesc = '' where itemdesc is null;
 
 ALTER TABLE chefmenu drop column isveg;
+
+ALTER TABLE chefs 
+ADD COLUMN chefprofilephoto VARCHAR(500);
