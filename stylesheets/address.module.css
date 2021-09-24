@@ -1,4 +1,4 @@
-.restaurantcontainer{
+.addressContainer{
     margin-bottom:20px;
     width:85%;
     margin:auto;
@@ -6,10 +6,13 @@
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     /* border: 1px solid #aaa; */
 }
+.selectBoxContainer{
+    width:100%;
+}
 
 @media only screen and (max-width: 980px) {
     /* phone */
-    .restaurantcontainer{
+    .addressContainer{
         display:grid;
         place-items: center;
     }

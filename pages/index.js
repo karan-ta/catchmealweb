@@ -96,9 +96,10 @@ export default function Index() {
 } */}
 {restaurantDataArray.length == 0  &&
             <div className={styles.addressContainer}>
-    <h1>Address</h1>
+    <h1>Select Your Address:</h1>
+    <h4>(Find Awesome Shops Near You.)</h4>
     <br/>
-    <div>
+    <div className={styles.selectBoxContainer}>
     <GooglePlacesAutocomplete
   apiKey="AIzaSyAActYUF3kZoA-KFzulfFGkLAXmx8oYzh4"
   selectProps={{
