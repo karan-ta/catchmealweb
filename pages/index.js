@@ -7,7 +7,7 @@ import { useRouter } from 'next/router'
 import { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete' ;
 import { useState,useEffect } from 'react';
-export default function Address() {
+export default function Index() {
     // const restaurantDataArray = JSON.parse(restaurantData)
     const router = useRouter()
     // const menuhref = "/newmenu"
@@ -46,7 +46,7 @@ export default function Address() {
   // console.log('Successfully got latitude and longitude', { lat, lng });
   router.push(
    {
-   pathname: '/restaurants/[lat]/[lng]',
+   pathname: '/shops/[lat]/[lng]',
    query: {
      lat:lat,
      lng:lng
