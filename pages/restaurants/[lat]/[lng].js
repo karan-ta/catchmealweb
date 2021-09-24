@@ -6,7 +6,7 @@ function Restaurants({ data }) {
   
   return (
 <div className = {styles.restaurantcontainer}>
-  <h1>Awesome Stores Near You.</h1>
+  <h1>Awesome Shops Near You.</h1>
     {data.map((restaurant, index) => ( 
 
     <Link href={"/"+restaurant.chefname}>

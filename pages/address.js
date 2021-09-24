@@ -7,7 +7,7 @@ import { useRouter } from 'next/router'
 import { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete' ;
 import { useState,useEffect } from 'react';
-export default function Address() {
+export default function Index() {
     // const restaurantDataArray = JSON.parse(restaurantData)
     const router = useRouter()
     // const menuhref = "/newmenu"
@@ -60,7 +60,7 @@ export default function Address() {
     return(
       <div className={styles.homepagecontainer}>
         <Head>
-            <title>Select a chef near you</title>
+            <title>Select a shop near you</title>
             <link rel="icon" href="/favicon.ico"/>
           </Head>
           {/* {restaurantDataArray.length > 0  &&
