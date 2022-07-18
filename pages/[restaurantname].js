@@ -61,7 +61,6 @@ export default class Newmenu extends Component {
     cartTotal:0,
     cartQuantity:0 // for phone => total cart items in cart.
     };
-    
  
   }
   componentDidMount(){
